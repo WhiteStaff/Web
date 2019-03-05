@@ -1,13 +1,13 @@
 html, body {
     margin: 0;
     height: 100%;
-    background: darkgrey;
+    background:aliceblue;
 }
-ul {
+.nav_bar ul {
     list-style: none;
     margin: 0;
     padding-left: 0;
-    background-color: aliceblue;
+    background-color: beige;
     height: 60px;
     min-height: 30px;
     opacity: 50%;
@@ -68,9 +68,81 @@ ul {
         margin: 0 30px;
     }
 }
-.page
-{
-    overflow: hidden;
-    width: 100%;
-}
 
+@media (min-width: 1050px) {
+
+
+    .page {
+        overflow: hidden;
+        width: 100%;
+    }
+
+    .page div {
+        float: left;
+
+        position: relative;
+        margin-top: 10px;
+        height: 100%;
+
+
+    }
+
+    .left_menu ol {
+
+        width: auto;
+        min-width: 100px;
+        max-width: 400px;
+        height: auto;
+
+        list-style: none;
+        padding-left: 0;
+        margin-left: 20px;
+        margin-top: 0;
+    }
+
+    .left_menu li {
+        padding: 5px;
+        margin: 3px;
+
+    }
+
+    .left_menu li:hover {
+        background-color: #9d999d;
+        cursor: alias;
+    }
+
+    .center {
+        max-width: 1300px; /* Ширина элемента в пикселах */
+        padding: 10px; /* Поля вокруг текста */
+        margin: auto; /* Выравниваем по центру */
+        background: whitesmoke; /* Цвет фона */
+        height: calc(100% - 80px);
+    }
+
+    .main_content {
+        margin-left: 20px;
+        width: 50%;
+        position: absolute;
+        height: 100%;
+        border: 1px solid #9d999d;
+        border-radius: 10px;
+    }
+
+    .right_menu {
+
+        margin-left: 20px;
+        width: 40%;
+        position: absolute;
+        height: 100%;
+        border: 1px solid #9d999d;
+        border-radius: 10px;
+
+    }
+}
+@media (max-width: 1050px) {
+    .left_menu
+    {
+        display: none;
+    }
+
+}
