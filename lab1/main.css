@@ -1,3 +1,4 @@
+
 html, body {
     margin: 0;
     height: 100%;
@@ -60,6 +61,7 @@ nav ul {
     transform: scaleY(0);
     transform-origin: 0 0;
     transition: .5s ease-in-out;
+
 }
 .submenu a {
     color: white;
@@ -106,6 +108,10 @@ nav ul {
 }
 
 @media (min-width: 1050px) {
+    .submenu
+    {
+        visibility: hidden;
+    }
 
 .all_content
 {
@@ -171,10 +177,7 @@ nav ul {
     {
         visibility: hidden;
     }
-    .submenu
-    {
-        visibility: hidden;
-    }
+
 
 }
 @media (max-width: 1050px) {
@@ -187,6 +190,10 @@ nav ul {
         word-wrap: break-word;
         display: inline-block;
         width: 100%;
+    }
+   .submenu
+    {
+        visibility: visible !important;
     }
 
 }
