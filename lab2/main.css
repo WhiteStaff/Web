@@ -1,0 +1,11 @@
+#introduction {
+    background: linear-gradient(rgba(100,181,246 ,1), rgba(0,0,0,0.8)),
+    url('http://bit.ly/2fBj6OJ') 0% 0%/cover
+}
+.text-white-70 {
+    color: rgba(255,255,255,0.7)
+}
+
+.fill-viewport {
+    min-height: 100vh
+}
