@@ -9,3 +9,8 @@
 .fill-viewport {
     min-height: 100vh
 }
+.page-footer
+{
+    margin-top: 10px;
+    background-color: lavender;
+}
