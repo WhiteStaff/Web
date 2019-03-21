@@ -14,3 +14,23 @@
     margin-top: 10px;
     background-color: lavender;
 }
+
+@media (min-width: 450px) {
+    h1
+    {
+        font-size: 50px !important;
+    }
+    p
+    {
+      font-size: 40px !important;
+    }
+    h5
+    {
+        font-size: 35px !important;
+    }
+    .page-footer li
+    {
+        font-size: 35px;
+    }
+
+}
