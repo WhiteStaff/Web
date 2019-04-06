@@ -1,0 +1,125 @@
+<!DOCTYPE html> 
+<html> 
+
+<head> 
+<title>sss</title> 
+<meta charset="utf-8"> 
+</head> 
+
+
+<body> 
+
+</body> 
+<script> 
+var canvas = document.createElement("canvas"); 
+var ctx = canvas.getContext("2d"); 
+canvas.crossorigin = "amonymus"; 
+canvas.width = 500; 
+canvas.height = 500; 
+canvas.id = "canvas"; 
+var image1 = new Image(); 
+image1.src = "https://images.unsplash.com/photo-1506655624258-6e7d8102f90f?.."; 
+image1.width = 250; 
+image1.height = 250; 
+image1.crossOrigin = "Anonymos"; 
+var image2 = document.createElement("img"); 
+image2.src = "https://images.unsplash.com/photo-1484723091739-30a097e8f929?.."; 
+image2.width = 250; 
+image2.height = 250; 
+image2.crossOrigin = "Anonymos"; 
+var image3 = document.createElement("img"); 
+image3.src = "https://images.unsplash.com/photo-1506084868230-bb9d95c24759?.."; 
+image3.width = 250; 
+image3.height = 250; 
+image3.crossOrigin = "Anonymos"; 
+var image4 = document.createElement("img"); 
+image4.src = "https://images.unsplash.com/photo-1492683962492-deef0ec456c0?.."; 
+image4.width = 250; 
+image4.height = 250; 
+image4.crossOrigin = "Anonymos"; 
+function parseQuote(response) { 
+
+var author = response.quoteAuthor; 
+ctx.fillStyle = "white"; 
+ctx.font = "25px Arial" 
+var words = response.quoteText.split(" "); 
+currStr = ""; 
+var strings= []; 
+
+while (words.length > 0) 
+{ 
+
+if (ctx.measureText(currStr + " " + words[0]).width < 400) { 
+if (currStr === "") 
+currStr = words[0]; 
+else 
+currStr += " " + words[0]; 
+words.splice(0, 1) 
+} else { 
+strings.push(currStr); 
+currStr = ""; 
+
+} 
+} 
+
+strings.push(currStr); 
+
+
+curry = 180; 
+
+strings.forEach( function(item, i, array) 
+{ 
+
+ctx.fillText(item, 80, curry); 
+
+curry+=20; 
+}) 
+ctx.fillText(author, 150, 400); 
+
+} 
+function GetText(src) { 
+var el = document.createElement("script"); 
+el.src = src; 
+document.body.appendChild(el); 
+return el; 
+} 
+function draw() { 
+var ab = GetText("https://api.forismatic.com/api/1.0/?method=getQuote&forma.."); 
+} 
+
+document.body.appendChild(canvas); 
+image1.onload = function () { 
+ctx.drawImage(image1, 250, 250, 250, 250); 
+} 
+image2.onload = function () { 
+ctx.drawImage(image2, 0, 250, 250, 250); 
+} 
+image3.onload = function () { 
+ctx.drawImage(image3, 250, 0, 250, 250); 
+} 
+image4.onload = function () { 
+ctx.drawImage(image4, 0, 0, 250, 250); 
+draw(); 
+} 
+
+var btn = document.createElement("button"); 
+document.body.appendChild(btn); 
+btn.innerText = "Download"; 
+btn.style.display = "none"; 
+var el = document.createElement("script"); 
+el.src = "http://hongru.github.io/proj/canvas2image/canvas2image.js"; 
+document.body.appendChild(el); 
+btn.onclick = function() 
+{ 
+//Canvas2Image.saveAsPNG(canvas); 
+var image = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream"); // here is the most important part because if you dont replace you will get a DOM 18 exception. 
+
+
+window.location.href=image; 
+} 
+btn.style.display = "block"; 
+
+
+</script> 
+
+</html>
