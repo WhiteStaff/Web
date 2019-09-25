@@ -4,9 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Weather Application</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+    <script src="js/handlebars-v4.2.0.js"></script>
     <link href="styles.less" type="text/css" rel="stylesheet/less"/>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/2.7.3/less.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/less.js/2.7.3/less.min.js"></script>
 
 </head>
 
@@ -20,14 +20,23 @@
         </div>
     </header>
 
-    <div id="result"></div>
+    <div id="result">
+
+    </div>
 
 </div>
 
-<script src="js/handlebars-v4.2.0.js"></script>
+
 <script  src="js/main.js"></script>
-<script id="text-template" type="text/x-handlebars-template">
-    City Name: {{city_name}}<br>Weather: {{weather}}<br> Temperature: {{temp}}<br>Humidity: {{hum}}<br>Wind: {{wind_spd}}
+<script id="text-template-true" type="text/x-handlebars-template">
+    <div>City Name: {{city_name}}</div>
+    <div>Weather: {{weather}}</div>
+    <div>Temperature: {{temp}}</div>
+    <div>Humidity: {{hum}}</div>
+    <div>Wind: {{wind_spd}}</div>
+</script>
+<script id="text-template-err" type="text/x-handlebars-template">
+    Неправильный город
 </script>
 </body>
 
