@@ -5,6 +5,7 @@ import {CitiesPanel} from "./components/CitiesPanel";
 import {BigCity} from "./components/BigCity";
 import {CityCard} from "./components/CityCard";
 import  {WeatherInfo} from "./components/WeatherInfo";
+import {Wrapper} from "./components/Wrapper";
 // import './App.css';
 
 function App() {
@@ -13,8 +14,7 @@ function App() {
       <header className="App-header">
        Данные о погоде
       </header>
-      <BigCity/>
-      <CitiesPanel/>
+        <Wrapper/>
     </div>
   );
 }
