@@ -1,30 +1,66 @@
-import React, { Component } from 'react';
-import Post from './Post';
-import { connect } from 'react-redux';
+import React, {Component} from 'react';
+import {CityCard} from "./CityCard";
 
-class SavedCity extends Component {
+export class SavedCity extends Component {
+    componentWillMount() {
+        this.findWeatherDetailsForName(this.props.post.title);
+        this.setState({done: false})
+    }
+
+    appKey = "2e19bb27bd5e717bac388dc0c1827b17";
+
+    httpRequestAsync(url, callback) {
+        console.log("hello");
+        var httpRequest = new XMLHttpRequest();
+        httpRequest.onreadystatechange = () => {
+            if (httpRequest.readyState === 4 && httpRequest.status === 200)
+                callback(httpRequest.responseText);
+            else if (httpRequest.status === 404) {
+                this.setError();
+            }
+        }
+        httpRequest.open("GET", url, true);
+        httpRequest.send();
+    }
+    setError() {
+        // alert("Ну ой")
+    }
+
+    findWeatherDetailsForName(searchInput) {
+        if (searchInput === "") {
+            // alert("tut")
+        } else {
+            let searchLink = "https://api.openweathermap.org/data/2.5/weather?q=" + searchInput + "&appid=" + this.appKey;
+            // alert(searchInput);
+            this.httpRequestAsync(searchLink, (response) => {
+                let json = JSON.parse(response);
+                this.setState(
+                    {
+                        json: {
+                            coord: json.coord.lon + ", " + json.coord.lat,
+                            wind: json.wind.speed + " m/s",
+                            humidity: json.main.humidity + " %",
+                            pressure: json.main.pressure + " hpa",
+                            clouds: json.weather[0].description
+                        },
+                        done: true
+                    })
+
+
+            });
+        }
+    }
+
     render() {
-        return (
-            <div className="card" style={{ marginTop: '20px' }}>
-                <div className="card-header">
-                    <h3 className="text-center">Все статьи</h3>
-                </div>
-                <ul className="list-group list-group-flush">
-                    <li className="list-group-item">
-                        {this.props.posts.map(post => (
-                            <Post key={post.id} post={post} />
-                        ))}
-                        <button>-</button>
-                    </li>
-                </ul>
-            </div>
-        );
+        if (this.state.done) {
+            return (
+                    <CityCard json={this.state.json}/>
+
+            );
+        } else {
+            return <div> Данные не загружены </div>
+        }
     }
 }
 
-const mapStateToProps = (state) => {
-    return {
-        posts: state
-    }
-}
-export default connect(mapStateToProps)(SavedCity);
+

@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
+import {SavedCity} from "./SavedCity";
 
 
- class CitiesPanel extends Component{
-     prevId = 0;
+class CitiesPanel extends Component {
+    prevId = Math.round(Math.random()*100);
     handleSubmit = event => {
         event.preventDefault();
         const title = this.getTitle.value;
@@ -19,6 +20,20 @@ import {connect} from 'react-redux';
         this.getTitle.value = '';
     };
 
+     delete () {
+        // event.preventDefault();
+        const data = {
+            id: this.id
+        };
+        console.log(data);
+        this.props.dispatch({
+            type: "DELETE_CITY",
+            data
+        });
+    };
+
+
+     id;
 
     render() {
 
@@ -32,6 +47,19 @@ import {connect} from 'react-redux';
                     </div>
                 </form>
                 <div>
+                    <ul className="list-group list-group-flush">
+                        <li className="list-group-item">
+
+                            {this.props.posts.map(post =>
+                                (<div>
+                                        ИМЯ: {post.title}
+                                    <button onClick={() =>{this.id = post.id; this.delete(); }}>-</button>
+                                    <SavedCity key={post.id} post={post}/>
+                                </div>
+                            ))}
+
+                        </li>
+                    </ul>
                 </div>
             </div>
         );
@@ -41,4 +69,10 @@ import {connect} from 'react-redux';
 
 }
 
-export default connect() (CitiesPanel);
+const mapStateToProps = (state) => {
+    return {
+        posts: state
+    }
+}
+export default connect(mapStateToProps)(CitiesPanel);
+

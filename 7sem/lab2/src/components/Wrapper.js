@@ -2,9 +2,6 @@ import React, {Component} from 'react';
 import {BigCity} from "./BigCity";
 import CitiesPanel from "./CitiesPanel";
 
-
-import SavedCity from "./SavedCity";
-
 export class Wrapper extends Component {
 
     componentWillMount() {
@@ -48,7 +45,6 @@ export class Wrapper extends Component {
                     </header>
                     <BigCity json={this.state.json}/>
                     <CitiesPanel />
-                    <SavedCity/>
                 </div>
             );
         } else {
@@ -64,7 +60,7 @@ export class Wrapper extends Component {
                     </button>
                     <BigCity json={this.state.json}/>
                     <CitiesPanel/>
-                    <SavedCity/>
+                    
                 </div>
             )
         }

@@ -14,6 +14,27 @@ export class CityCard extends Component {
         this.clouds = this.props.json.clouds;
     }
 
+    findWeatherDetailsForName(searchInput) {
+        if (searchInput === "") {
+            // alert("tut")
+        } else {
+            let searchLink = "https://api.openweathermap.org/data/2.5/weather?q=" + searchInput + "&appid=" + this.appKey;
+            // alert(searchInput);
+            this.httpRequestAsync(searchLink, (response) => {
+                let json = JSON.parse(response);
+                this.setState({json: {
+                        coord: json.coord.lon + ", " + json.coord.lat,
+                        wind: json.wind.speed + " m/s",
+                        humidity: json.main.humidity + " %",
+                        pressure: json.main.pressure + " hpa",
+                        clouds: json.weather[0].description
+                    }
+                })
+
+            });
+        }
+    }
+
 
     render() {
         this.parseJson();
