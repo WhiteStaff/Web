@@ -1,6 +1,7 @@
 import React, {Component, useState} from 'react';
 import {BigCity} from "./BigCity";
 import {CitiesPanel} from "./CitiesPanel";
+import {connect} from "react-redux";
 
 export class Wrapper extends Component {
 
@@ -44,7 +45,7 @@ export class Wrapper extends Component {
                         </button>
                     </header>
                     <BigCity json={this.state.json}/>
-                    <CitiesPanel/>
+                    <CitiesPanel />
                 </div>
             );
         } else {
