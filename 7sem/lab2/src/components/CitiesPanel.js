@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
 
-export class CitiesPanel extends Component{
+ class CitiesPanel extends Component{
     handleSubmit = event => {
         event.preventDefault();
         const title = this.getTitle.value;
@@ -40,4 +40,4 @@ export class CitiesPanel extends Component{
 
 }
 
-
+export default connect() (CitiesPanel);

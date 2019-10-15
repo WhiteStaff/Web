@@ -22,4 +22,4 @@ const mapStateToProps = (state) => {
         posts: state
     }
 }
-export default connect(mapStateToProps, mapDispatchToProps)(SavedCity);
+export default connect(mapStateToProps)(SavedCity);
