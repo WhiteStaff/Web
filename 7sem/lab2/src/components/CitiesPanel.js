@@ -3,11 +3,12 @@ import {connect} from 'react-redux';
 
 
  class CitiesPanel extends Component{
+     prevId = 0;
     handleSubmit = event => {
         event.preventDefault();
         const title = this.getTitle.value;
         const data = {
-            id: 1,
+            id: (this.prevId += 1),
             title
         };
         console.log(data);

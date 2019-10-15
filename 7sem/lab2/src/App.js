@@ -1,8 +1,7 @@
 import React from 'react';
 import './App.css';
 import {Wrapper} from "./components/Wrapper";
-import {connect} from "react-redux";
-import {CitiesPanel} from "./components/CitiesPanel";
+
 
 
 

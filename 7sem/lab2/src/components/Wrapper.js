@@ -1,8 +1,8 @@
-import React, {Component, useState} from 'react';
+import React, {Component} from 'react';
 import {BigCity} from "./BigCity";
 import CitiesPanel from "./CitiesPanel";
 
-import {connect} from "react-redux";
+
 import SavedCity from "./SavedCity";
 
 export class Wrapper extends Component {
