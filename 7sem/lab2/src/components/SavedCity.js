@@ -13,9 +13,10 @@ export class SavedCity extends Component {
         console.log("hello");
         var httpRequest = new XMLHttpRequest();
         httpRequest.onreadystatechange = () => {
-            if (httpRequest.readyState === 4 && httpRequest.status === 200)
+            if (httpRequest.readyState === 4 && httpRequest.status === 200) {
                 callback(httpRequest.responseText);
-            else if (httpRequest.status === 404) {
+                this.setState({error: false})
+            } else if (httpRequest.status === 404) {
                 this.setError();
             }
         }
@@ -23,17 +24,18 @@ export class SavedCity extends Component {
         httpRequest.send();
     }
 
+    error;
+
     setError() {
-        // alert("Ну ой")
+        console.log("WSYUIurfydgstyr")
+        this.setState({error: true})
     }
 
     findWeatherDetailsForName(searchInput) {
         this.setState({done: false});
         if (searchInput === "") {
-            // alert("tut")
         } else {
             let searchLink = "https://api.openweathermap.org/data/2.5/weather?q=" + searchInput + "&appid=" + this.appKey;
-            // alert(searchInput);
             this.httpRequestAsync(searchLink, (response) => {
                 let json = JSON.parse(response);
                 this.setState(
@@ -56,30 +58,47 @@ export class SavedCity extends Component {
         }
     }
 
-    render() {
 
-        if (this.state.done) {
-            let name = this.state.json.name;
-            let icon = this.state.json.icon;
-            let temp = this.state.json.temp;
-            let iconLink = "https://openweathermap.org/img/wn/" + icon + "@2x.png";
+    render() {
+        console.log(this.props.post.title, this.error)
+        if (this.state.error == true)
+
             return (
-                <div class="container p-0">
-                    <div class="row pl-3">
+                <div>
+                    Такого города в известной Вселенной нет </div>
+            )
+
+        else {
+            if (this.state.done) {
+
+                let icon = this.state.json.icon;
+                let temp = this.state.json.temp;
+                let iconLink = "https://openweathermap.org/img/wn/" + icon + "@2x.png";
+                return (
+                    <div class="container p-0">
                         <div class="row pl-3">
-                            <h1 class="my-auto">{temp}</h1>
-                            <img alt="icon" src={iconLink}/>
+                            <div class="row pl-3">
+                                <h1 class="my-auto">{temp}</h1>
+                                <img alt="icon" src={iconLink}/>
+                            </div>
+                        </div>
+                        <CityCard json={this.state.json}/>
+                    </div>
+
+                );
+            } else {
+                return (
+                    <div>
+                        <div>{this.props.post.title}</div>
+                        <div>Подождите, данные загружаются</div>
+                        <div className="spinner-border m-5" role="status">
+                            <span className="sr-only">Loading...</span>
                         </div>
                     </div>
-                    <CityCard json={this.state.json}/>
-                </div>
-
-            );
-        } else {
-            return <div>
-                <div>{this.props.post.title}</div>
-                Данные не загружены </div>
+                )
+            }
         }
+
     }
 }
 

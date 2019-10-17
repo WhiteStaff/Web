@@ -24,6 +24,7 @@ export class Wrapper extends Component {
             },
             (position) => {
                 this.setState({positionAllowed: false});
+                console.log(this.state.json)
 
             });
 
@@ -31,46 +32,69 @@ export class Wrapper extends Component {
     }
 
     render() {
-        if (this.state.positionAllowed) {
+        if (this.state.error == true)
+
             return (
-                <div>
-                    <header>
-                        <div class="container">
-                            <div class="row">
-                            <div class="col-4">
-                        <span class="sh ">Погода здесь</span>
-                            </div>
-                            <div class="col-3 my-auto mx-auto">
-                        <button class="btn btn-secondary " onClick={() => {
-                            navigator.geolocation.getCurrentPosition((position) => {
-                                this.findWeatherDetailsForCoords(position.coords)
-                            })
-                        }}>Обновить геолокацию
+                <div className="container">
+                    <div class="row">
+                        <span className="sh">Найти погоду здесь</span>
+                        <input class="favourite-input" value={this.state.inputValue}
+                               onChange={evt => this.updateInputValue(evt)}/>
+
+                        <button onClick={() => {
+                            this.findWeatherDetailsForName(this.state.inputValue)
+
+                        }}>Поиск
                         </button>
-                            </div>
-                            </div>
-                        </div>
-                    </header>
-                    <BigCity json={this.state.json}/>
-                    <CitiesPanel />
-                </div>
-            );
-        } else {
-            return (
-                <div>
-                    <span>Пощел нахуй здесь</span>
-                    <input value={this.state.inputValue} onChange={evt => this.updateInputValue(evt)}/>
-
-                    <button onClick={() => {
-                        this.findWeatherDetailsForName(this.state.inputValue)
-
-                    }}>Поиск
-                    </button>
-                    <BigCity json={this.state.json}/>
+                    </div>
+                    <div>Такого города во вселенной нет</div>
                     <CitiesPanel/>
 
                 </div>
             )
+        else {
+            if (this.state.positionAllowed) {
+                return (
+                    <div>
+                        <header>
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-4">
+                                        <span class="sh ">Погода здесь</span>
+                                    </div>
+                                    <div class="col-3 my-auto mx-auto">
+                                        <button class="btn btn-secondary " onClick={() => {
+                                            navigator.geolocation.getCurrentPosition((position) => {
+
+                                                this.findWeatherDetailsForCoords(position.coords)
+                                            })
+                                        }}>Обновить геолокацию
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </header>
+                        <BigCity json={this.state.json} done={this.state.done}/>
+                        <CitiesPanel/>
+                    </div>
+                );
+            } else {
+                return (
+                    <div class="container">
+                        <span class="sh">Найти погоду здесь</span>
+                        <input value={this.state.inputValue} onChange={evt => this.updateInputValue(evt)}/>
+
+                        <button onClick={() => {
+                            this.findWeatherDetailsForName(this.state.inputValue)
+
+                        }}>Поиск
+                        </button>
+                        <BigCity json={this.state.json} done={this.state.done}/>
+                        <CitiesPanel/>
+
+                    </div>
+                )
+            }
         }
     }
 
@@ -83,6 +107,7 @@ export class Wrapper extends Component {
     appKey = "2e19bb27bd5e717bac388dc0c1827b17";
 
     findWeatherDetailsForName(searchInput) {
+        this.setState({done: false});
         if (searchInput === "") {
             // alert("tut")
         } else {
@@ -90,24 +115,32 @@ export class Wrapper extends Component {
             // alert(searchInput);
             this.httpRequestAsync(searchLink, (response) => {
                 let json = JSON.parse(response);
-                this.setState({json: {
+                this.setState({
+                    json: {
                         coord: json.coord.lon + ", " + json.coord.lat,
                         wind: json.wind.speed + " m/s",
                         humidity: json.main.humidity + " %",
                         pressure: json.main.pressure + " hpa",
-                        clouds: json.weather[0].description
-                }
+                        clouds: json.weather[0].description,
+                        icon: json.weather[0].icon,
+                        name: json.name,
+                        temp: parseInt(json.main.temp - 273) + "°C"
+                    },
+                    done: true
                 })
+
 
             });
         }
     }
 
     findWeatherDetailsForCoords(coords) {
+        this.setState({done: false});
         let searchLink = "https://api.openweathermap.org/data/2.5/weather?lat=" + coords.latitude + "&lon=" + coords.longitude + "&appid=" + this.appKey;
         this.httpRequestAsync(searchLink, (response) => {
             let json = JSON.parse(response);
-            this.setState({json: {
+            this.setState({
+                json: {
                     coord: json.coord.lon + ", " + json.coord.lat,
                     wind: json.wind.speed + " m/s",
                     humidity: json.main.humidity + " %",
@@ -115,15 +148,16 @@ export class Wrapper extends Component {
                     clouds: json.weather[0].description,
                     icon: json.weather[0].icon,
                     name: json.name,
-                    temp:  parseInt(json.main.temp - 273) + "°C"
-                }
+                    temp: parseInt(json.main.temp - 273) + "°C"
+                },
+                done: true
             })
 
         });
 
     }
 
-    //  theResponse(response) {
+    // theResponse(response) {
     //     let jsonObject = JSON.parse(response);
     //     this.json = jsonObject;
     //     // this.set(jsonObject);
@@ -135,9 +169,11 @@ export class Wrapper extends Component {
         console.log("hello");
         var httpRequest = new XMLHttpRequest();
         httpRequest.onreadystatechange = () => {
-            if (httpRequest.readyState === 4 && httpRequest.status === 200)
+            if (httpRequest.readyState === 4 && httpRequest.status === 200) {
                 callback(httpRequest.responseText);
-            else if (httpRequest.status === 404) {
+                this.setState({error: false})
+
+            } else if (httpRequest.status === 404) {
                 this.setError();
             }
         }
@@ -160,8 +196,10 @@ export class Wrapper extends Component {
     //     // document.getElementById('result').innerHTML = html;
     // }
 
+    error;
+
     setError() {
-        alert("Ну ой")
+        this.setState({error: true})
     }
 
 
