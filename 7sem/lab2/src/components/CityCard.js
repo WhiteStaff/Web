@@ -40,12 +40,27 @@ export class CityCard extends Component {
         this.parseJson();
         if (this.coord)
             return (
-                <div>
-                    <div><span>ветер</span>{this.wind}</div>
-                    <div><span>облачность</span>{this.clouds}</div>
-                    <div><span>давление</span>{this.pressure}</div>
-                    <div><span>влажность</span>{this.humidity}</div>
-                    <div><span>координаты</span>{this.coord}</div>
+                <div >
+                    <div class="alert alert-dark row px-0 mx-1">
+                        <div class="col-6">Ветер</div>
+                        <div class="col-6 text-right">{this.wind}</div>
+                    </div>
+                    <div class="alert alert-dark row px-0 mx-1">
+                        <div class="col-6">Облачность</div>
+                        <div class="col-6 text-right">{this.clouds}</div>
+                    </div>
+                    <div class="alert alert-dark row px-0 mx-1">
+                        <div class="col-6">Давление</div>
+                        <div class="col-6 text-right">{this.pressure}</div>
+                    </div>
+                    <div class="alert alert-dark row px-0 mx-1">
+                        <div class="col-6">Влажность</div>
+                        <div class="col-6 text-right">{this.humidity}</div>
+                    </div>
+                    <div class="alert alert-dark row px-0 mx-1">
+                        <div class="col-6">Координаты</div>
+                        <div class="col-6 text-right">[{this.coord}]</div>
+                    </div>
                 </div>
             );
         else

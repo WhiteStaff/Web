@@ -11,3 +11,35 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+.sh
+{
+  font-family: serif;
+  font-size: 40px;
+}
+
+.favourite-input
+{
+  background-color: lightgrey;
+  border: 0px;
+  padding: 10px;
+  margin-right: 5px;
+  width: 60%;
+  height: 47px;
+}
+
+.btn-circle {
+  width: 46px;
+  height: 46px;
+  border-radius: 26px;
+  text-align: justify-all;
+  padding-left: 0;
+  padding-right: 0;
+  font-size: 25px;
+  margin-top: 0px;
+  border: 0px;
+  vertical-align: middle;
+margin-bottom: 2px;
+
+
+}

@@ -22,6 +22,7 @@ export class SavedCity extends Component {
         httpRequest.open("GET", url, true);
         httpRequest.send();
     }
+
     setError() {
         // alert("Ну ой")
     }
@@ -60,20 +61,24 @@ export class SavedCity extends Component {
             let name = this.state.json.name;
             let icon = this.state.json.icon;
             let temp = this.state.json.temp;
-            let iconLink = "https://openweathermap.org/img/wn/"+ icon +"@2x.png";
+            let iconLink = "https://openweathermap.org/img/wn/" + icon + "@2x.png";
             return (
-                <div>
-                    <h2>{name}</h2>
-                    <div>
-                        <img alt="icon" src={iconLink}/>
-                        <h1>{temp}</h1>
+                <div class="container">
+                    <div class="row">
+                        <h2 class="col-3">{name}</h2>
+                        <div>
+                            <img alt="icon" src={iconLink}/>
+                            <h1>{temp}</h1>
+                        </div>
                     </div>
                     <CityCard json={this.state.json}/>
                 </div>
 
             );
         } else {
-            return <div> <div>{this.props.post.title}</div>Данные не загружены </div>
+            return <div>
+                <div>{this.props.post.title}</div>
+                Данные не загружены </div>
         }
     }
 }

@@ -4,10 +4,10 @@ import {SavedCity} from "./SavedCity";
 
 
 class CitiesPanel extends Component {
-    prevId = Math.round(Math.random()*100);
+    prevId = Math.round(Math.random() * 100);
     handleSubmit = event => {
 
-        if(this.props.posts.length === 2)
+        if (this.props.posts.length === 2)
             alert("Препод не разрешает больше двух избранных городов")
         else {
             event.preventDefault();
@@ -25,7 +25,7 @@ class CitiesPanel extends Component {
         }
     };
 
-     delete () {
+    delete() {
         // event.preventDefault();
         const data = {
             id: this.id
@@ -38,32 +38,35 @@ class CitiesPanel extends Component {
     };
 
 
-     id;
+    id;
 
     render() {
 
         return (
-            <div>
+            <div class="container">
                 <form onSubmit={this.handleSubmit}>
-                    <div>
-                        <div>Избранное</div>
-                        <input ref={input => this.getTitle = input} required type="text" placeholder="Enter city"/>
-                        <button>+</button>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-6 px-0 sh">Избранное</div>
+                            <div class="col-6 text-right my-auto form-group">
+                                <input class="favourite-input"  ref={input => this.getTitle = input} required type="text"
+                                       placeholder="Добавить новый город"/>
+                                <button type="buton" class="btn-circle">+</button>
+                            </div>
+                        </div>
                     </div>
                 </form>
-                <div>
-                    <ul className="list-group list-group-flush">
-                        <li className="list-group-item">
-
-                            {this.props.posts.map(post =>
-                                (<div>
-                                    <button onClick={() =>{this.id = post.id; this.delete(); }}>-</button>
-                                    <SavedCity key={post.id} post={post}/>
-                                </div>
-                            ))}
-
-                        </li>
-                    </ul>
+                <div class="row">
+                    {this.props.posts.map(post =>
+                        (<div class="col-6">
+                                <button onClick={() => {
+                                    this.id = post.id;
+                                    this.delete();
+                                }}>-
+                                </button>
+                                <SavedCity key={post.id} post={post}/>
+                            </div>
+                        ))}
                 </div>
             </div>
         );

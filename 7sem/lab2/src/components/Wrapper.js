@@ -35,13 +35,21 @@ export class Wrapper extends Component {
             return (
                 <div>
                     <header>
-                        <span>Погода здесь</span>
-                        <button onClick={() => {
+                        <div class="container">
+                            <div class="row">
+                            <div class="col-4">
+                        <span class="sh ">Погода здесь</span>
+                            </div>
+                            <div class="col-3 my-auto mx-auto">
+                        <button class="btn btn-secondary " onClick={() => {
                             navigator.geolocation.getCurrentPosition((position) => {
                                 this.findWeatherDetailsForCoords(position.coords)
                             })
                         }}>Обновить геолокацию
                         </button>
+                            </div>
+                            </div>
+                        </div>
                     </header>
                     <BigCity json={this.state.json}/>
                     <CitiesPanel />
@@ -60,7 +68,7 @@ export class Wrapper extends Component {
                     </button>
                     <BigCity json={this.state.json}/>
                     <CitiesPanel/>
-                    
+
                 </div>
             )
         }
@@ -107,7 +115,7 @@ export class Wrapper extends Component {
                     clouds: json.weather[0].description,
                     icon: json.weather[0].icon,
                     name: json.name,
-                    temp:  parseInt(json.main.temp - 273) + "°"
+                    temp:  parseInt(json.main.temp - 273) + "°C"
                 }
             })
 
