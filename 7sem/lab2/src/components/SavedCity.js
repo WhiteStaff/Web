@@ -27,6 +27,7 @@ export class SavedCity extends Component {
     }
 
     findWeatherDetailsForName(searchInput) {
+        this.setState({done: false});
         if (searchInput === "") {
             // alert("tut")
         } else {
@@ -37,6 +38,8 @@ export class SavedCity extends Component {
                 this.setState(
                     {
                         json: {
+                            name: json.name,
+                            icon: json.weather[0].icon,
                             coord: json.coord.lon + ", " + json.coord.lat,
                             wind: json.wind.speed + " m/s",
                             humidity: json.main.humidity + " %",
@@ -52,13 +55,25 @@ export class SavedCity extends Component {
     }
 
     render() {
+
         if (this.state.done) {
+            let name = this.state.json.name;
+            let icon = this.state.json.icon;
+            let temp = this.state.json.temp;
+            let iconLink = "https://openweathermap.org/img/wn/"+ icon +"@2x.png";
             return (
+                <div>
+                    <h2>{name}</h2>
+                    <div>
+                        <img alt="icon" src={iconLink}/>
+                        <h1>{temp}</h1>
+                    </div>
                     <CityCard json={this.state.json}/>
+                </div>
 
             );
         } else {
-            return <div> Данные не загружены </div>
+            return <div> <div>{this.props.post.title}</div>Данные не загружены </div>
         }
     }
 }

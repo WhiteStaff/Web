@@ -6,18 +6,23 @@ import {SavedCity} from "./SavedCity";
 class CitiesPanel extends Component {
     prevId = Math.round(Math.random()*100);
     handleSubmit = event => {
-        event.preventDefault();
-        const title = this.getTitle.value;
-        const data = {
-            id: (this.prevId += 1),
-            title
-        };
-        console.log(data);
-        this.props.dispatch({
-            type: "ADD_CITY",
-            data
-        });
-        this.getTitle.value = '';
+
+        if(this.props.posts.length === 2)
+            alert("Препод не разрешает больше двух избранных городов")
+        else {
+            event.preventDefault();
+            const title = this.getTitle.value;
+            const data = {
+                id: (this.prevId += 1),
+                title
+            };
+            console.log(data);
+            this.props.dispatch({
+                type: "ADD_CITY",
+                data
+            });
+            this.getTitle.value = '';
+        }
     };
 
      delete () {
@@ -52,7 +57,6 @@ class CitiesPanel extends Component {
 
                             {this.props.posts.map(post =>
                                 (<div>
-                                        ИМЯ: {post.title}
                                     <button onClick={() =>{this.id = post.id; this.delete(); }}>-</button>
                                     <SavedCity key={post.id} post={post}/>
                                 </div>

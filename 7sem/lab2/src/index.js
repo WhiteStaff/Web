@@ -5,6 +5,7 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import './App.css';
 import cityReducer from './reducer/reducer';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 import {Provider} from 'react-redux';
 import { createStore } from 'redux';

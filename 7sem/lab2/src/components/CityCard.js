@@ -41,11 +41,11 @@ export class CityCard extends Component {
         if (this.coord)
             return (
                 <div>
+                    <div><span>ветер</span>{this.wind}</div>
+                    <div><span>облачность</span>{this.clouds}</div>
+                    <div><span>давление</span>{this.pressure}</div>
+                    <div><span>влажность</span>{this.humidity}</div>
                     <div><span>координаты</span>{this.coord}</div>
-                    <div><span>координаты</span>{this.wind}</div>
-                    <div><span>координаты</span>{this.humidity}</div>
-                    <div><span>координаты</span>{this.pressure}</div>
-                    <div><span>координаты</span>{this.clouds}</div>
                 </div>
             );
         else
