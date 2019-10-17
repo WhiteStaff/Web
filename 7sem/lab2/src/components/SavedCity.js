@@ -45,7 +45,8 @@ export class SavedCity extends Component {
                             wind: json.wind.speed + " m/s",
                             humidity: json.main.humidity + " %",
                             pressure: json.main.pressure + " hpa",
-                            clouds: json.weather[0].description
+                            clouds: json.weather[0].description,
+                            temp: parseInt(json.main.temp - 273) + "°C"
                         },
                         done: true
                     })
@@ -63,12 +64,11 @@ export class SavedCity extends Component {
             let temp = this.state.json.temp;
             let iconLink = "https://openweathermap.org/img/wn/" + icon + "@2x.png";
             return (
-                <div class="container">
-                    <div class="row">
-                        <h2 class="col-3">{name}</h2>
-                        <div>
+                <div class="container p-0">
+                    <div class="row pl-3">
+                        <div class="row pl-3">
+                            <h1 class="my-auto">{temp}</h1>
                             <img alt="icon" src={iconLink}/>
-                            <h1>{temp}</h1>
                         </div>
                     </div>
                     <CityCard json={this.state.json}/>
