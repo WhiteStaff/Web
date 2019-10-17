@@ -18,13 +18,28 @@ code {
   font-size: 40px;
 }
 
+.error
+{
+  color: darkgrey;
+}
+
+.fav
+{
+  background-color: whitesmoke;
+}
 .favourite-input
 {
   background-color: lightgrey;
   border: 0px;
   padding: 10px;
   margin-right: 5px;
-  width: 60%;
+  width: 300px;
+
+}
+
+.input_advance
+{
+  width: 60% !important;
   height: 47px;
 }
 

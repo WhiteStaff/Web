@@ -43,13 +43,13 @@ class CitiesPanel extends Component {
     render() {
 
         return (
-            <div class="container">
+            <div class="container fav">
                 <form onSubmit={this.handleSubmit}>
-                    <div class="container">
+                    <div class="container pl-0">
                         <div class="row">
                             <div class="col-6 px-0 sh">Избранное</div>
                             <div class="col-6 text-right my-auto form-group">
-                                <input class="favourite-input" ref={input => this.getTitle = input} required type="text"
+                                <input class="favourite-input input_advance" ref={input => this.getTitle = input} required type="text"
                                        placeholder="Добавить новый город"/>
                                 <button type="buton" class="btn-circle">+</button>
                             </div>

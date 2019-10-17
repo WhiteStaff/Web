@@ -36,29 +36,30 @@ export class Wrapper extends Component {
 
             return (
                 <div className="container">
-                    <div class="row">
-                        <span className="sh">Найти погоду здесь</span>
-                        <input class="favourite-input" value={this.state.inputValue}
+                    <div class="row pl-3">
+                        <span className="sh mr-4 pr-15">Найти погоду здесь</span>
+                        <input class="favourite-input my-auto" value={this.state.inputValue} placeholder="Введите город"
                                onChange={evt => this.updateInputValue(evt)}/>
 
-                        <button onClick={() => {
+                        <button class="btn btn-secondary my-auto" onClick={() => {
                             this.findWeatherDetailsForName(this.state.inputValue)
 
                         }}>Поиск
                         </button>
                     </div>
-                    <div>Такого города во вселенной нет</div>
+                    <h2 class="error">Такого города во вселенной нет</h2>
                     <CitiesPanel/>
 
                 </div>
             )
         else {
             if (this.state.positionAllowed) {
+                alert(1);
                 return (
                     <div>
                         <header>
                             <div class="container">
-                                <div class="row">
+                                <div class="row pl-3">
                                     <div class="col-4">
                                         <span class="sh ">Погода здесь</span>
                                     </div>
@@ -79,21 +80,55 @@ export class Wrapper extends Component {
                     </div>
                 );
             } else {
-                return (
-                    <div class="container">
-                        <span class="sh">Найти погоду здесь</span>
-                        <input value={this.state.inputValue} onChange={evt => this.updateInputValue(evt)}/>
+                if (this.state.done) {
 
-                        <button onClick={() => {
-                            this.findWeatherDetailsForName(this.state.inputValue)
+                    return (
+                        <div class="container">
+                            <div class="row pl-3">
+                                <span class="sh mr-4 pr-5">Найти погоду здесь</span>
+                                <input class="favourite-input my-auto " value={this.state.inputValue}
+                                       onChange={evt => this.updateInputValue(evt)} placeholder="Введите город"/>
 
-                        }}>Поиск
-                        </button>
-                        <BigCity json={this.state.json} done={this.state.done}/>
-                        <CitiesPanel/>
+                                <button class="btn btn-secondary my-auto" onClick={() => {
+                                    this.findWeatherDetailsForName(this.state.inputValue)
 
-                    </div>
-                )
+                                }}>Поиск
+                                </button>
+                            </div>
+                            <BigCity json={this.state.json} />
+                            <CitiesPanel/>
+
+                        </div>
+                    )
+                } else {
+
+                    return (
+                        <div class="container text-center">
+                            <div className="row pl-3">
+                                <div className="col-4">
+                                    <span className="sh ">Погода здесь</span>
+                                </div>
+                                <div className="col-3 my-auto mx-auto">
+                                    <button className="btn btn-secondary " onClick={() => {
+                                        navigator.geolocation.getCurrentPosition((position) => {
+
+                                            this.findWeatherDetailsForCoords(position.coords)
+                                        })
+                                    }}>Обновить геолокацию
+                                    </button>
+                                </div>
+
+                            </div>
+                            <h1>Подождите, данные загружаются</h1>
+                            <div className="spinner-border m-5" role="status">
+                                <span className="sr-only">Loading...</span>
+                            </div>
+                            <CitiesPanel/>
+                        </div>
+
+                    );
+
+                }
             }
         }
     }
