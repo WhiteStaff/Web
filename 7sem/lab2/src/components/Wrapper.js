@@ -54,7 +54,7 @@ export class Wrapper extends Component {
             )
         else {
             if (this.state.positionAllowed) {
-                alert(1);
+                //alert(1);
                 return (
                     <div>
                         <header>
