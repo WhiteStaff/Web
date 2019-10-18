@@ -23,7 +23,7 @@ export class BigCity extends Component {
                                 <div class="col-3">
                                     <img alt="icon" width="100px" src={iconLink}/>
                                 </div>
-                                <h1 class="col-6 my-auto display-1 sh">{temp}</h1>
+                                <h1 class="col-6 my-auto display-1">{temp}</h1>
                             </div>
                         </div>
                         <div class="col-6">
