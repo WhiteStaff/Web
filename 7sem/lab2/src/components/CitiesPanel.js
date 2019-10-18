@@ -8,8 +8,9 @@ class CitiesPanel extends Component {
     handleSubmit = event => {
 
         if (this.props.posts.length === 2)
-            alert("Препод не разрешает больше двух избранных городов")
+            document.getElementById("errortext").innerText = "Нельзя больше 2 городов"
         else {
+            document.getElementById("errortext").innerText = " "
             event.preventDefault();
             const title = this.getTitle.value;
             const data = {
@@ -44,18 +45,21 @@ class CitiesPanel extends Component {
 
         return (
             <div class="container fav">
-                <form onSubmit={this.handleSubmit}>
+                <div>
                     <div class="container pl-0">
                         <div class="row">
                             <div class="col-6 px-0 sh">Избранное</div>
                             <div class="col-6 text-right my-auto form-group">
+                                <div>
                                 <input class="favourite-input input_advance" ref={input => this.getTitle = input} required type="text"
                                        placeholder="Добавить новый город"/>
-                                <button type="buton" class="btn-circle">+</button>
+                                <button type="buton" class="btn-circle" onClick={this.handleSubmit}>+</button>
+                                </div>
+                                <div id="errortext" class="text-center error"> </div>
                             </div>
                         </div>
                     </div>
-                </form>
+                </div>
                 <div class="row">
                     {this.props.posts.map(post =>
                         (<div class="col-6">
@@ -77,6 +81,7 @@ class CitiesPanel extends Component {
         );
 
     }
+
 
 
 }

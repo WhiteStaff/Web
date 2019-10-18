@@ -15,7 +15,8 @@ export class Wrapper extends Component {
                 name: "",
                 temp: "",
                 icon: " "
-            }
+            },
+            done: "noreq"
         });
         navigator.geolocation.getCurrentPosition((position) => {
                 this.setState({positionAllowed: true});
@@ -100,8 +101,29 @@ export class Wrapper extends Component {
 
                         </div>
                     )
-                } else {
-
+                }
+                // else if (this.state.done=="noreq"){
+                //
+                //     return (
+                //         <div class="container">
+                //             <div class="row pl-3">
+                //                 <span class="sh mr-4 pr-5">Найти погоду здесь</span>
+                //                 <input class="favourite-input my-auto " value={this.state.inputValue}
+                //                        onChange={evt => this.updateInputValue(evt)} placeholder="Введите город"/>
+                //
+                //                 <button class="btn btn-secondary my-auto" onClick={() => {
+                //                     this.findWeatherDetailsForName(this.state.inputValue)
+                //
+                //                 }}>Поиск
+                //                 </button>
+                //             </div>
+                //             <CitiesPanel/>
+                //
+                //         </div>
+                //     )
+                //
+                // }
+                else {
                     return (
                         <div class="container text-center">
                             <div className="row pl-3">

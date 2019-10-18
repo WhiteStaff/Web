@@ -12,6 +12,8 @@ export class BigCity extends Component {
         let temp = this.props.json.temp;
         let iconLink = "https://openweathermap.org/img/wn/" + icon + "@2x.png";
 
+        if( this.props.json.clouds == 0) return <div> </div>
+        else
             return (
                 <div class="container pl-0">
                     <div class="row">
@@ -31,5 +33,6 @@ export class BigCity extends Component {
                 </div>
 
             );
+
     }
 }
