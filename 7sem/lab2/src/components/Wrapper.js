@@ -16,7 +16,8 @@ export class Wrapper extends Component {
                 temp: "",
                 icon: " "
             },
-            done: "noreq"
+            done: "noreq",
+            inputValue: ""
         });
         navigator.geolocation.getCurrentPosition((position) => {
                 this.setState({positionAllowed: true});
@@ -91,39 +92,24 @@ export class Wrapper extends Component {
                                        onChange={evt => this.updateInputValue(evt)} placeholder="Введите город"/>
 
                                 <button class="btn btn-secondary my-auto" onClick={() => {
-                                    this.findWeatherDetailsForName(this.state.inputValue)
+                                    if (this.state.inputValue === "") {
+                                        document.getElementById("empty").innerText = "Заполните это поле!"
+                                    } else
+                                        this.findWeatherDetailsForName(this.state.inputValue)
 
                                 }}>Поиск
                                 </button>
+
                             </div>
-                            <BigCity json={this.state.json} />
+                            <div>
+                                <h2 id="empty" class="error"></h2>
+                            </div>
+                            <BigCity json={this.state.json}/>
                             <CitiesPanel/>
 
                         </div>
                     )
-                }
-                // else if (this.state.done=="noreq"){
-                //
-                //     return (
-                //         <div class="container">
-                //             <div class="row pl-3">
-                //                 <span class="sh mr-4 pr-5">Найти погоду здесь</span>
-                //                 <input class="favourite-input my-auto " value={this.state.inputValue}
-                //                        onChange={evt => this.updateInputValue(evt)} placeholder="Введите город"/>
-                //
-                //                 <button class="btn btn-secondary my-auto" onClick={() => {
-                //                     this.findWeatherDetailsForName(this.state.inputValue)
-                //
-                //                 }}>Поиск
-                //                 </button>
-                //             </div>
-                //             <CitiesPanel/>
-                //
-                //         </div>
-                //     )
-                //
-                // }
-                else {
+                } else {
                     return (
                         <div class="container text-center">
                             <div className="row pl-3">
@@ -166,10 +152,10 @@ export class Wrapper extends Component {
     findWeatherDetailsForName(searchInput) {
         this.setState({done: false});
         if (searchInput === "") {
-            // alert("tut")
+            alert("12121");
         } else {
             let searchLink = "https://api.openweathermap.org/data/2.5/weather?q=" + searchInput + "&appid=" + this.appKey;
-            // alert(searchInput);
+
             this.httpRequestAsync(searchLink, (response) => {
                 let json = JSON.parse(response);
                 this.setState({
@@ -214,14 +200,6 @@ export class Wrapper extends Component {
 
     }
 
-    // theResponse(response) {
-    //     let jsonObject = JSON.parse(response);
-    //     this.json = jsonObject;
-    //     // this.set(jsonObject);
-    //      console.log(jsonObject)
-    // }
-
-
     httpRequestAsync(url, callback) {
         console.log("hello");
         var httpRequest = new XMLHttpRequest();
@@ -237,21 +215,6 @@ export class Wrapper extends Component {
         httpRequest.open("GET", url, true);
         httpRequest.send();
     }
-
-    //  set(jsonObject)
-    // {
-    //     alert(jsonObject)
-    //     // var source   = document.getElementById('text-template-true').innerHTML;
-    //     // var template = Handlebars.compile(source);
-    //     // var context = {city_name: jsonObject.name,
-    //     //     weather: jsonObject.weather[0].main,
-    //     //     temp: parseInt(jsonObject.main.temp - 273) + "°",
-    //     //     hum: jsonObject.main.humidity + "%",
-    //     //     wind_spd: jsonObject.wind.speed + " mps"};
-    //     // var html = template(context);
-    //     //
-    //     // document.getElementById('result').innerHTML = html;
-    // }
 
     error;
 

@@ -7,8 +7,12 @@ class CitiesPanel extends Component {
     prevId = Math.round(Math.random() * 100);
     handleSubmit = event => {
 
-        if (this.props.posts.length === 2)
+        /*if (this.props.posts.length === 2)
             document.getElementById("errortext").innerText = "Нельзя больше 2 городов"
+        else */
+        if (this.getTitle.value === '') {
+            document.getElementById("errortext").innerText = "Заполните это поле!"
+        }
         else {
             document.getElementById("errortext").innerText = " "
             event.preventDefault();
@@ -27,7 +31,6 @@ class CitiesPanel extends Component {
     };
 
     delete() {
-        // event.preventDefault();
         const data = {
             id: this.id
         };
