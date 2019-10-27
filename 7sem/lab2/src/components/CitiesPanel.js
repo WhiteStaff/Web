@@ -50,11 +50,11 @@ class CitiesPanel extends Component {
                         <div class="row">
                             <div class="col-6 px-0 sh">Избранное</div>
                             <div class="col-6 text-right my-auto form-group">
-                                <div>
+                                <form onSubmit={this.handleSubmit}>
                                 <input class="favourite-input input_advance" ref={input => this.getTitle = input} required type="text"
                                        placeholder="Добавить новый город"/>
-                                <button type="buton" class="btn-circle" onClick={this.handleSubmit}>+</button>
-                                </div>
+                                <button type="buton" class="btn-circle">+</button>
+                                </form>
                                 <div id="errortext" class="text-center error"> </div>
                             </div>
                         </div>
