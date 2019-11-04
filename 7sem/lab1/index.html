@@ -8,6 +8,14 @@
     <link href="styles.less" type="text/css" rel="stylesheet/less"/>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/less.js/2.7.3/less.min.js"></script>
 
+    <!-- подключаем стили Mocha, для отображения результатов -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mocha/2.1.0/mocha.css">
+    <!-- подключаем библиотеку Mocha -->
+    <link rel="stylesheet" href="./node_modules/mocha/mocha.css" />
+    <script src="./node_modules/mocha/mocha.js"></script>
+    <script src="./node_modules/chai/chai.js"></script>
+
+
 </head>
 
 <body>
@@ -20,10 +28,7 @@
         </div>
     </header>
 
-    <div id="result">
-
-    </div>
-
+    <div id="result"></div>
 </div>
 
 
@@ -38,6 +43,21 @@
 <script id="text-template-err" type="text/x-handlebars-template">
     Неправильный город
 </script>
+<script>
+    assert = chai.assert;
+    describe("Нажатие кнопки",  function () {
+        it("С данными",   function() {
+             document.getElementById('search-txt').value = 1212;
+             findWeatherDetails ();
+             assert.notEqual(document.getElementById('result').textContent, '')
+        });
+        it("С пустым полем", function () {
+            document.getElementById('search-txt').value = "";
+            findWeatherDetails();
+            assert.equal(document.getElementById('result').textContent, 'Введи что ниб')
+        });
+    });
+    mocha.run();
+</script>
 </body>
-
 </html>

@@ -29,7 +29,6 @@ function theResponse(response) {
 
 function httpRequestAsync(url, callback)
 {
-    console.log("hello");
     var httpRequest = new XMLHttpRequest();
     httpRequest.onreadystatechange = () => {
         if (httpRequest.readyState === 4 && httpRequest.status === 200)
@@ -39,7 +38,7 @@ function httpRequestAsync(url, callback)
             setError();
         }
     }
-    httpRequest.open("GET", url, true);
+    httpRequest.open("GET", url, false);
     httpRequest.send();
 }
 
@@ -62,6 +61,6 @@ function setError()
     var source   = document.getElementById('text-template-err').innerHTML;
     var template = Handlebars.compile(source);
     var html = template();
-
     document.getElementById('result').innerHTML = html;
 }
+
