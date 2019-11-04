@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="./node_modules/mocha/mocha.css" />
     <script src="./node_modules/mocha/mocha.js"></script>
     <script src="./node_modules/chai/chai.js"></script>
+    <script src="./node_modules/sinon/pkg/sinon.js"></script>
 
 
 </head>
@@ -55,6 +56,18 @@
             document.getElementById('search-txt').value = "";
             findWeatherDetails();
             assert.equal(document.getElementById('result').textContent, 'Введи что ниб')
+        });
+    });
+    describe('Проверка запроса', function() {
+        it('должен вызывать колбек 1 раз', function () {
+            var callback = sinon.spy();
+            //xhr = sinon.useFakeXMLHttpRequest();
+            const appKey = "2e19bb27bd5e717bac388dc0c1827b17";
+            searchLink = "https://api.openweathermap.org/data/2.5/weather?q=Moscow&appid=" + appKey;
+            //httpRequestAsync().fakeXMLHttpRequestFor.readyState = 4;
+            //httpRequestAsync().fakeXMLHttpRequestFor.status = 200;
+            httpRequestAsync("", callback);
+            assert(callback.calledOnce);
         });
     });
     mocha.run();
