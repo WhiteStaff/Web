@@ -1,98 +1,59 @@
 import React, {Component} from 'react';
 import {CityCard} from "./CityCard";
+import {doDeleteItem, itemsFetchData} from "../actions/items";
+import {connect} from "react-redux";
 
 export class SavedCity extends Component {
-    componentWillMount() {
-        this.findWeatherDetailsForName(this.props.post.title);
-        this.setState({done: false})
+    componentDidMount() {
+        this.props.fetchData(this.props.serverInfo.city);
     }
-
-    appKey = "2e19bb27bd5e717bac388dc0c1827b17";
-
-    httpRequestAsync(url, callback) {
-        console.log("hello");
-        var httpRequest = new XMLHttpRequest();
-        httpRequest.onreadystatechange = () => {
-            if (httpRequest.readyState === 4 && httpRequest.status === 200) {
-                callback(httpRequest.responseText);
-                this.setState({error: false})
-            } else if (httpRequest.status === 404) {
-                this.setError();
-            }
-        }
-        httpRequest.open("GET", url, true);
-        httpRequest.send();
-    }
-
-    error;
-
-    setError() {
-        console.log("WSYUIurfydgstyr")
-        this.setState({error: true})
-    }
-
-    findWeatherDetailsForName(searchInput) {
-        this.setState({done: false});
-        if (searchInput === "") {
-        } else {
-            let searchLink = "https://api.openweathermap.org/data/2.5/weather?q=" + searchInput + "&appid=" + this.appKey;
-            this.httpRequestAsync(searchLink, (response) => {
-                let json = JSON.parse(response);
-                this.setState(
-                    {
-                        json: {
-                            name: json.name,
-                            icon: json.weather[0].icon,
-                            coord: json.coord.lon + ", " + json.coord.lat,
-                            wind: json.wind.speed + " m/s",
-                            humidity: json.main.humidity + " %",
-                            pressure: json.main.pressure + " hpa",
-                            clouds: json.weather[0].description,
-                            temp: parseInt(json.main.temp - 273) + "°C"
-                        },
-                        done: true
-                    })
-
-
-            });
-        }
-    }
-
 
     render() {
-        console.log(this.props.post.title, this.error)
-        if (this.state.error == true)
+
+        if (this.props.serverInfo.error)
 
             return (
-                <div>
-                    Такого города в известной Вселенной нет </div>
+                <div class="col-6">
+                <div class="row">
+                    <div class="col-6">
+                        Такого города в известной Вселенной нет
+                    </div>
+                    <div class="col-6 text-right">
+                        <button class="btn-circle" onClick={() => this.props.delete(this.props.serverInfo.city)}>X
+                        </button>
+                    </div>
+                </div>
+                </div>
+
             )
 
         else {
-            if (this.state.done) {
-
-                let icon = this.state.json.icon;
-                let temp = this.state.json.temp;
+            if (this.props.serverInfo.done) {
+                let icon = this.props.serverInfo.data.weather[0].icon;
+                let temp = parseInt(this.props.serverInfo.data.main.temp - 273) + "°C";
+                let name = this.props.serverInfo.data.name;
                 let iconLink = "https://openweathermap.org/img/wn/" + icon + "@2x.png";
                 return (
-                    <div class="container p-0">
-                        <div class="row pl-3">
-                            <div class="row pl-3">
-                                <h1 class="my-auto">{temp}</h1>
-                                <img alt="icon" src={iconLink}/>
+                    <div class="col-6">
+                        <div class="row">
+                        <div class="col-6"><h1>{name}</h1></div>
+                            <div class="col-6 text-right">
+                                <button class="btn-circle" onClick={() => this.props.delete(this.props.serverInfo.city)}>X</button>
                             </div>
                         </div>
-                        <CityCard json={this.state.json}/>
+                        <h1 class="my-auto">{temp}</h1>
+                        <img alt="icon" src={iconLink}/>
+                        <CityCard serverInfo={this.props.serverInfo.data}/>
                     </div>
 
                 );
             } else {
                 return (
                     <div>
-                        <div>{this.props.post.title}</div>
+                        <div>{this.props.serverInfo.data.name}</div>
                         <div>Подождите, данные загружаются</div>
-                        <div className="spinner-border m-5" role="status">
-                            <span className="sr-only">Loading...</span>
+                        <div class="spinner-border m-5" role="status">
+                            <span class="sr-only">Loading...</span>
                         </div>
                     </div>
                 )
@@ -101,5 +62,18 @@ export class SavedCity extends Component {
 
     }
 }
+
+const mapStateToProps = (state) => {
+    return {};
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        fetchData: (url) => dispatch(itemsFetchData(url)),
+        delete: (city) => dispatch(doDeleteItem(city))
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SavedCity);
 
 

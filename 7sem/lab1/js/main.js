@@ -16,7 +16,7 @@ function findWeatherDetails() {
         document.getElementById('result').innerHTML = "Введи что ниб";
     }else {
         let searchLink = "https://api.openweathermap.org/data/2.5/weather?q=" + searchInput.value + "&appid="+appKey;
-        httpRequestAsync(searchLink, theResponse);
+        httpRequestSync(searchLink, theResponse);
     }
 }
 
@@ -27,19 +27,19 @@ function theResponse(response) {
 
 
 
-function httpRequestAsync(url, callback)
+function httpRequestSync(url, callback)
 {
-    console.log("hello");
     var httpRequest = new XMLHttpRequest();
     httpRequest.onreadystatechange = () => {
-        if (httpRequest.readyState === 4 && httpRequest.status === 200)
+        if (httpRequest.readyState === 4 && httpRequest.status === 200) {
             callback(httpRequest.responseText);
+        }
         else if (httpRequest.status === 404)
         {
             setError();
         }
     }
-    httpRequest.open("GET", url, true);
+    httpRequest.open("GET", url, false);
     httpRequest.send();
 }
 
@@ -62,6 +62,6 @@ function setError()
     var source   = document.getElementById('text-template-err').innerHTML;
     var template = Handlebars.compile(source);
     var html = template();
-
     document.getElementById('result').innerHTML = html;
 }
+

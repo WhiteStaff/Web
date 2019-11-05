@@ -3,16 +3,16 @@ import {CityCard} from "./CityCard";
 
 export class BigCity extends Component {
     componentWillMount() {
-        this.setState({json: this.props.json});
+        this.setState({serverInfo: this.props.serverInfo});
     }
 
     render() {
-        let name = this.props.json.name;
-        let icon = this.props.json.icon;
-        let temp = this.props.json.temp;
+        let name = this.props.serverInfo.name;
+        let icon = this.props.serverInfo.weather[0].icon;
+        let temp = parseInt(this.props.serverInfo.main.temp - 273) + "°C";
         let iconLink = "https://openweathermap.org/img/wn/" + icon + "@2x.png";
 
-        if( this.props.json.clouds == 0) return <div> </div>
+        if( this.props.serverInfo.clouds == 0) return <div> </div>
         else
             return (
                 <div class="container pl-0">
@@ -27,7 +27,7 @@ export class BigCity extends Component {
                             </div>
                         </div>
                         <div class="col-6">
-                            <CityCard json={this.props.json}/>
+                            <CityCard serverInfo={this.props.serverInfo}/>
                         </div>
                     </div>
                 </div>

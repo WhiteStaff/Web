@@ -7,11 +7,11 @@ export class CityCard extends Component {
     }
 
     parseJson() {
-        this.coord = this.props.json.coord;
-        this.wind = this.props.json.wind;
-        this.humidity = this.props.json.humidity;
-        this.pressure = this.props.json.pressure;
-        this.clouds = this.props.json.clouds;
+        this.coord = this.props.serverInfo.coord.lon + ", " + this.props.serverInfo.coord.lat;
+        this.wind = this.props.serverInfo.wind.speed + " m/s";
+        this.humidity = this.props.serverInfo.main.humidity + " %";
+        this.pressure = this.props.serverInfo.main.pressure + " hpa";
+        this.clouds = this.props.serverInfo.weather[0].description;
     }
 
 
