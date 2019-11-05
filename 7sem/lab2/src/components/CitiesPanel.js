@@ -39,7 +39,7 @@ class CitiesPanel extends Component {
                                 i++;
                                 return (
                                     [
-                                        <SavedCity key={i} serverInfo={favCity}/>,
+                                        <SavedCity key={i} json={favCity}/>,
                                         i % 2 === 0 && <div key={-i} className="w-100"/>,
                                     ]
                                 )

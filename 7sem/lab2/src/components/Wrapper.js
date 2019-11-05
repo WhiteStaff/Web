@@ -16,6 +16,18 @@ export class Wrapper extends Component {
     }
 
     render() {
+        if (this.state.error)
+        {
+            return(
+            <div className="col-6">
+                <div className="row">
+                    <h1 class="alert-danger">
+                        Либо ты не на Земле, либо отпали серваки
+                    </h1>
+                </div>
+            </div>
+            )
+        }
         if (this.state.positionAllowed) {
             if (this.state.done) {
                 return (
@@ -29,7 +41,7 @@ export class Wrapper extends Component {
                                     </div>
                                     <div class="col-3 my-auto mx-auto">
                                         <button class="btn btn-secondary " onClick={() => {
-                                            navigator.geolocation.getCurrentPosition(this.setPosition,                                           () => {this.setFail()});
+                                            navigator.geolocation.getCurrentPosition(this.setPosition,this.setFail);
                                         }}>Обновить геолокацию
                                         </button>
                                     </div>
@@ -37,7 +49,7 @@ export class Wrapper extends Component {
                                 </div>
                             </div>
                         </header>
-                        <BigCity serverInfo={this.state.serverInfo} done={this.state.done}/>
+                        <BigCity json={this.state.json} done={this.state.done}/>
 
                     </div>
                 );
@@ -50,8 +62,7 @@ export class Wrapper extends Component {
                             </div>
                             <div className="col-3 my-auto mx-auto">
                                 <button className="btn btn-secondary " onClick={() => {
-                                    navigator.geolocation.getCurrentPosition((position) => {this.setPosition(position.coords)},
-                                        () => {this.setFail()});
+                                    navigator.geolocation.getCurrentPosition(this.setPosition,this.setFail);
                                 }}>Обновить геолокацию
                                 </button>
                             </div>
@@ -79,9 +90,7 @@ export class Wrapper extends Component {
                                     </div>
                                     <div className="col-3 my-auto mx-auto">
                                         <button className="btn btn-secondary " onClick={() => {
-                                            navigator.geolocation.getCurrentPosition(this.setPosition, () => {
-                                                this.setFail()
-                                            });
+                                            navigator.geolocation.getCurrentPosition(this.setPosition, this.setFail);
                                         }}>Обновить геолокацию
                                         </button>
                                     </div>
@@ -89,7 +98,7 @@ export class Wrapper extends Component {
                                 </div>
                             </div>
                         </div>
-                        <BigCity serverInfo={this.state.serverInfo}/>
+                        <BigCity json={this.state.json}/>
                     </div>
                 );
 
@@ -142,7 +151,7 @@ export class Wrapper extends Component {
             .then((response) => {
                 this.setState(
                     {
-                        serverInfo: response,
+                        json: response,
                         done: true,
                         error: false
                     })

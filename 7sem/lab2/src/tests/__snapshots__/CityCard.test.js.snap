@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`renders correctly 1`] = `
+exports[`CityCard renders correctly 1`] = `
 <div>
   <div
     class="alert alert-dark row px-0 mx-1"
@@ -13,7 +13,7 @@ exports[`renders correctly 1`] = `
     <div
       class="col-6 text-right"
     >
-      0
+      0.47 m/s
     </div>
   </div>
   <div
@@ -27,7 +27,7 @@ exports[`renders correctly 1`] = `
     <div
       class="col-6 text-right"
     >
-      0
+      clear sky
     </div>
   </div>
   <div
@@ -41,7 +41,7 @@ exports[`renders correctly 1`] = `
     <div
       class="col-6 text-right"
     >
-      0
+      1009 hpa
     </div>
   </div>
   <div
@@ -55,7 +55,7 @@ exports[`renders correctly 1`] = `
     <div
       class="col-6 text-right"
     >
-      0
+      92 %
     </div>
   </div>
   <div
@@ -70,7 +70,7 @@ exports[`renders correctly 1`] = `
       class="col-6 text-right"
     >
       [
-      0
+      139, 35
       ]
     </div>
   </div>
