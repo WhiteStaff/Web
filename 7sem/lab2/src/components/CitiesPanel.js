@@ -35,10 +35,8 @@ class CitiesPanel extends Component {
                 </div>
                 <div className="row">
                     {
-
-                        /*this.props.items.map((favCity, i = 0) => {
+                        this.props.items.map((favCity, i = 0) => {
                                 i++;
-                                console.log(favCity);
                                 return (
                                     [
                                         <SavedCity key={i} serverInfo={favCity}/>,
@@ -47,8 +45,7 @@ class CitiesPanel extends Component {
                                 )
 
                             }
-                        )*/
-
+                        )
                     }
                 </div>
             </div>

@@ -4,13 +4,12 @@ import {CityCard} from "./CityCard";
 export class BigCity extends Component {
     componentWillMount() {
         this.setState({serverInfo: this.props.serverInfo});
-        //console.log(this.props.serverInfo)
     }
 
     render() {
         let name = this.props.serverInfo.name;
-        let icon = this.props.serverInfo.icon;
-        let temp = this.props.serverInfo.temp;
+        let icon = this.props.serverInfo.weather[0].icon;
+        let temp = parseInt(this.props.serverInfo.main.temp - 273) + "°C";
         let iconLink = "https://openweathermap.org/img/wn/" + icon + "@2x.png";
 
         if( this.props.serverInfo.clouds == 0) return <div> </div>

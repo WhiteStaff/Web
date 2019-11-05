@@ -129,7 +129,6 @@ export class Wrapper extends Component {
 
     getWeather = async (coords) => {
         await this.setState({done: false, error: false});
-        //console.log(coords);
         fetch('https://api.openweathermap.org/data/2.5/weather?lat=' + coords.latitude + '&lon=' + coords.longitude +
             '&appid=2e19bb27bd5e717bac388dc0c1827b17')
             .then((response) => {
@@ -140,19 +139,10 @@ export class Wrapper extends Component {
 
             })
             .then((response) => response.json())
-            .then((json) => {
+            .then((response) => {
                 this.setState(
                     {
-                        serverInfo: {
-                            coord: json.coord.lon + ", " + json.coord.lat,
-                            wind: json.wind.speed + " m/s",
-                            humidity: json.main.humidity + " %",
-                            pressure: json.main.pressure + " hpa",
-                            clouds: json.weather[0].description,
-                            icon: json.weather[0].icon,
-                            name: json.name,
-                            temp: parseInt(json.main.temp - 273) + "°C"
-                        },
+                        serverInfo: response,
                         done: true,
                         error: false
                     })
