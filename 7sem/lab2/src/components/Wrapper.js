@@ -6,18 +6,8 @@ export class Wrapper extends Component {
 
     componentWillMount() {
         this.setState({
-            positionAllowed: true, json: {
-                coord: "0",
-                wind: "0",
-                humidity: "0",
-                pressure: "0",
-                clouds: "0",
-                name: "",
-                temp: "",
-                icon: " "
-            },
-            done: "noreq",
-            inputValue: "",
+            positionAllowed: true,
+            done: false,
             error : false
         });
         navigator.geolocation.getCurrentPosition(this.setPosition,this.setFail);
@@ -47,7 +37,7 @@ export class Wrapper extends Component {
                                 </div>
                             </div>
                         </header>
-                        <BigCity json={this.state.json} done={this.state.done}/>
+                        <BigCity serverInfo={this.state.serverInfo} done={this.state.done}/>
 
                     </div>
                 );
@@ -99,7 +89,7 @@ export class Wrapper extends Component {
                                 </div>
                             </div>
                         </div>
-                        <BigCity json={this.state.json}/>
+                        <BigCity serverInfo={this.state.serverInfo}/>
                     </div>
                 );
 
@@ -139,7 +129,7 @@ export class Wrapper extends Component {
 
     getWeather = async (coords) => {
         await this.setState({done: false, error: false});
-        console.log(coords);
+        //console.log(coords);
         fetch('https://api.openweathermap.org/data/2.5/weather?lat=' + coords.latitude + '&lon=' + coords.longitude +
             '&appid=2e19bb27bd5e717bac388dc0c1827b17')
             .then((response) => {
@@ -153,7 +143,7 @@ export class Wrapper extends Component {
             .then((json) => {
                 this.setState(
                     {
-                        json: {
+                        serverInfo: {
                             coord: json.coord.lon + ", " + json.coord.lat,
                             wind: json.wind.speed + " m/s",
                             humidity: json.main.humidity + " %",
