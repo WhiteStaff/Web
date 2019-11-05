@@ -34,7 +34,7 @@ export class Wrapper extends Component {
     }
 
     render() {
-        if (this.state.error == true)
+        /*if (this.state.error == true)
 
             return (
                 <div className="container">
@@ -62,6 +62,7 @@ export class Wrapper extends Component {
                         <header>
                             <div class="container">
                                 <div class="row pl-3">
+
                                     <div class="col-4">
                                         <span class="sh ">Погода здесь</span>
                                     </div>
@@ -74,6 +75,7 @@ export class Wrapper extends Component {
                                         }}>Обновить геолокацию
                                         </button>
                                     </div>
+
                                 </div>
                             </div>
                         </header>
@@ -138,6 +140,128 @@ export class Wrapper extends Component {
 
                 }
             }
+        }*/
+        if (this.state.positionAllowed) {
+            if (this.state.done) {
+                return (
+                    <div>
+                        <header>
+                            <div class="container">
+                                <div class="row pl-3">
+
+                                    <div class="col-4">
+                                        <span class="sh ">Погода здесь</span>
+                                    </div>
+                                    <div class="col-3 my-auto mx-auto">
+                                        <button class="btn btn-secondary " onClick={() => {
+                                            navigator.geolocation.getCurrentPosition((position) => {
+
+                                                this.findWeatherDetailsForCoords(position.coords)
+                                            })
+                                        }}>Обновить геолокацию
+                                        </button>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </header>
+                        <BigCity json={this.state.json} done={this.state.done}/>
+                        <CitiesPanel/>
+                    </div>
+                );
+            } else {
+                return (
+                    <div class="container text-center">
+                        <div className="row pl-3">
+                            <div className="col-4">
+                                <span className="sh ">Погода здесь</span>
+                            </div>
+                            <div className="col-3 my-auto mx-auto">
+                                <button className="btn btn-secondary " onClick={() => {
+                                    navigator.geolocation.getCurrentPosition((position) => {
+
+                                        this.findWeatherDetailsForCoords(position.coords)
+                                    })
+                                }}>Обновить геолокацию
+                                </button>
+                            </div>
+
+                        </div>
+                        <h1>Подождите, данные загружаются</h1>
+                        <div className="spinner-border m-5" role="status">
+                            <span className="sr-only">Loading...</span>
+                        </div>
+                        <CitiesPanel/>
+                    </div>
+
+                );
+            }
+        } else {
+            if (this.state.error === true)
+                return (
+                    <div className="container">
+                        <div class="row pl-3">
+                            <span className="sh mr-4 pr-15">Найти погоду здесь</span>
+                            <form onSubmit={this.findWeatherDetailsForName(this.state.inputValue)}>
+                                <input className="favourite-input input_advance" value={this.state.inputValue}
+                                       onChange={evt => this.updateInputValue(evt)} placeholder="Введите город"
+                                       required type="text"
+                                       placeholder="Введите город"/>
+                                <button type="buton" className="btn-circle">Поиск</button>
+                            </form>
+                        </div>
+                        <h2 class="error">Такого города во вселенной нет</h2>
+                        <CitiesPanel/>
+
+                    </div>
+                );
+            else if (this.state.done) {
+
+                return (
+                    <div class="container">
+                        <div class="row pl-3">
+                            <span class="sh mr-4 pr-5">Найти погоду здесь</span>
+                            <input class="favourite-input my-auto " value={this.state.inputValue}
+                                   onChange={evt => this.updateInputValue(evt)} placeholder="Введите город"/>
+
+                            <button class="btn btn-secondary my-auto" onClick={() => {
+                                this.findWeatherDetailsForName(this.state.inputValue)
+
+                            }}>Поиск
+                            </button>
+                        </div>
+                        <BigCity json={this.state.json}/>
+                        <CitiesPanel/>
+
+                    </div>
+                );
+
+            } else
+                return (
+                    <div class="container text-center">
+                        <div className="row pl-3">
+                            <div className="col-4">
+                                <span className="sh ">Погода здесь</span>
+                            </div>
+                            <div className="col-3 my-auto mx-auto">
+                                <button className="btn btn-secondary " onClick={() => {
+                                    navigator.geolocation.getCurrentPosition((position) => {
+
+                                        this.findWeatherDetailsForCoords(position.coords)
+                                    })
+                                }}>Обновить геолокацию
+                                </button>
+                            </div>
+
+                        </div>
+                        <h1>Подождите, данные загружаются</h1>
+                        <div className="spinner-border m-5" role="status">
+                            <span className="sr-only">Loading...</span>
+                        </div>
+                        <CitiesPanel/>
+                    </div>
+
+                );
         }
     }
 
@@ -224,3 +348,4 @@ export class Wrapper extends Component {
 
 
 }
+
