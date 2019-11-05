@@ -1,9 +1,20 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './App';
+import {CityCard} from './components/CityCard';
+import renderer from 'react-test-renderer';
 
-it('renders without crashing', () => {
-  const div = document.createElement('div');
-  ReactDOM.render(<App />, div);
-  ReactDOM.unmountComponentAtNode(div);
+it('renders correctly', () => {
+  const json =
+      {
+        coord: "0",
+        wind: "0",
+        humidity: "0",
+        pressure: "0",
+        clouds: "0",
+        name: "",
+        temp: "",
+        icon: " "
+      }
+  const tree = renderer.create(<CityCard json={json}/>).toJSON();
+
+  expect(tree).toMatchSnapshot();
 });

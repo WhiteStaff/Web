@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
@@ -11,7 +11,7 @@
     <!-- подключаем стили Mocha, для отображения результатов -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mocha/2.1.0/mocha.css">
     <!-- подключаем библиотеку Mocha -->
-    <link rel="stylesheet" href="./node_modules/mocha/mocha.css" />
+    <link rel="stylesheet" href="./node_modules/mocha/mocha.css"/>
     <script src="./node_modules/mocha/mocha.js"></script>
     <script src="./node_modules/chai/chai.js"></script>
     <script src="./node_modules/sinon/pkg/sinon.js"></script>
@@ -30,10 +30,11 @@
     </header>
 
     <div id="result"></div>
+    <!--<div id="mocha"></div>-->
 </div>
 
 
-<script  src="js/main.js"></script>
+<script src="js/main.js"></script>
 <script id="text-template-true" type="text/x-handlebars-template">
     <div>City Name: {{city_name}}</div>
     <div>Weather: {{weather}}</div>
@@ -46,11 +47,13 @@
 </script>
 <script>
     assert = chai.assert;
-    describe("Нажатие кнопки",  function () {
-        it("С данными",   function() {
-             document.getElementById('search-txt').value = 1212;
-             findWeatherDetails ();
-             assert.notEqual(document.getElementById('result').textContent, '')
+
+    describe("Нажатие кнопки", function () {
+        it("С данными", function () {
+            document.getElementById('search-txt').value = 1212;
+            findWeatherDetails();
+            assert.notEqual(document.getElementById('result').textContent, '')
+            //TODO: придумать норм проверку корректности
         });
         it("С пустым полем", function () {
             document.getElementById('search-txt').value = "";
@@ -58,16 +61,61 @@
             assert.equal(document.getElementById('result').textContent, 'Введи что ниб')
         });
     });
-    describe('Проверка запроса', function() {
-        it('должен вызывать колбек 1 раз', function () {
+    describe('Проверка запроса', function () {
+        it('HttpRequestAsync должен вызывать колбек 1 раз', function () {
             var callback = sinon.spy();
-            //xhr = sinon.useFakeXMLHttpRequest();
-            const appKey = "2e19bb27bd5e717bac388dc0c1827b17";
-            searchLink = "https://api.openweathermap.org/data/2.5/weather?q=Moscow&appid=" + appKey;
-            //httpRequestAsync().fakeXMLHttpRequestFor.readyState = 4;
-            //httpRequestAsync().fakeXMLHttpRequestFor.status = 200;
-            httpRequestAsync("", callback);
+            // const appKey = "2e19bb27bd5e717bac388dc0c1827b17";
+            // searchLink = "https://api.openweathermap.org/data/2.5/weather?q=Moscow&appid=" + appKey;
+            server = sinon.fakeServer.create();
+            server.autoRespond = true;
+            searchLink = "123";
+            server.respondWith("GET", "123", [
+                200,
+                { "Content-Type": "application/json" },
+                '[{ "id": 1, "name": "Gwen" },  { "id": 2, "name": "John" }]'
+            ]);
+            httpRequestSync("123", callback);
             assert(callback.calledOnce);
+        });
+        it('Ошибка при 404', function () {
+            var callback = sinon.spy();
+            server = sinon.fakeServer.create();
+            server.autoRespond = true;
+            searchLink = "123";
+            server.respondWith("GET", "123", [
+                404,
+                { "Content-Type": "application/json" },
+                '[{ "id": 1, "name": "Gwen" },  { "id": 2, "name": "John" }]'
+            ]);
+            httpRequestSync(searchLink, callback);
+            assert.equal(document.getElementById('result').innerText, "Неправильный город");
+        });
+    });
+    describe("Проверка корректность работы set-ов", function () {
+        it("setError", function () {
+            setError();
+            assert.equal(document.getElementById('result').innerText, "Неправильный город");
+        })
+        it('setText ', function () {
+            const json =
+                {
+                    "weather": [
+                        {
+                            "main": "Clear"
+                        }
+                    ],
+                    "main": {
+                        "temp": 289.92,
+                        "humidity": 92
+                    },
+                    "wind": {
+                        "speed": 0.47
+                    },
+                    "name": "Shuzenji"
+                };
+            set(json);
+            const expresult = "City Name: Shuzenji\nWeather: Clear\nTemperature: 16°\nHumidity: 92%\nWind: 0.47 mps";
+            assert.equal(document.getElementById('result').innerText, expresult);
         });
     });
     mocha.run();

@@ -18,7 +18,7 @@
   },
   "devDependencies": {},
   "scripts": {
-    "test": "mocha || true",
+    "test": "mocha-chrome http://localhost:8080",
     "start": "node server.js"
   },
   "author": "",
