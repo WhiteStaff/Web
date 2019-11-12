@@ -1,0 +1,161 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Connection Problems отображается корректно 1`] = `
+<div
+  class="container text-center"
+>
+  <div
+    className="row pl-3"
+  >
+    <div
+      className="col-4"
+    >
+      <span
+        className="sh "
+      >
+        Погода здесь
+      </span>
+    </div>
+    <div
+      className="col-3 my-auto mx-auto"
+    >
+      <button
+        className="btn btn-secondary "
+        onClick={[Function]}
+      >
+        Обновить геолокацию
+      </button>
+    </div>
+  </div>
+  <h1>
+    Подождите, данные загружаются
+  </h1>
+  <div
+    className="spinner-border m-5"
+    role="status"
+  >
+    <span
+      className="sr-only"
+    >
+      Loading...
+    </span>
+  </div>
+</div>
+`;
+
+exports[`Loaded with problems отображается корректно 1`] = `
+<div>
+  <header>
+    <div
+      class="container"
+    >
+      <div
+        class="row pl-3"
+      >
+        <div
+          class="col-4"
+        >
+          <span
+            class="sh "
+          >
+            Погода здесь
+          </span>
+        </div>
+        <div
+          class="col-3 my-auto mx-auto"
+        >
+          <button
+            class="btn btn-secondary "
+            onClick={[Function]}
+          >
+            Обновить геолокацию
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+  <BigCity
+    done={true}
+  />
+</div>
+`;
+
+exports[`Loaded отображается корректно 1`] = `
+<div>
+  <header>
+    <div
+      class="container"
+    >
+      <div
+        class="row pl-3"
+      >
+        <div
+          class="col-4"
+        >
+          <span
+            class="sh "
+          >
+            Погода здесь
+          </span>
+        </div>
+        <div
+          class="col-3 my-auto mx-auto"
+        >
+          <button
+            class="btn btn-secondary "
+            onClick={[Function]}
+          >
+            Обновить геолокацию
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+  <BigCity
+    done={true}
+  />
+</div>
+`;
+
+exports[`Loading отображается корректно 1`] = `
+<div
+  class="container text-center"
+>
+  <div
+    className="row pl-3"
+  >
+    <div
+      className="col-4"
+    >
+      <span
+        className="sh "
+      >
+        Погода здесь
+      </span>
+    </div>
+    <div
+      className="col-3 my-auto mx-auto"
+    >
+      <button
+        className="btn btn-secondary "
+        onClick={[Function]}
+      >
+        Обновить геолокацию
+      </button>
+    </div>
+  </div>
+  <h1>
+    Подождите, данные загружаются
+  </h1>
+  <div
+    className="spinner-border m-5"
+    role="status"
+  >
+    <span
+      className="sr-only"
+    >
+      Loading...
+    </span>
+  </div>
+</div>
+`;

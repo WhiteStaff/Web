@@ -8,22 +8,36 @@ import renderer from "react-test-renderer";
 
 const mocks =
     {
-        json : mock
-    }
+        done: true,
+        data : mock.data,
+        city : "kyiv"
+    };
+const mocks2 =
+    {
+        done: false,
+        data : mock.data,
+        city : "kyiv"
+    };
+const mocks3 =
+    {
+        error: true,
+        data : mock.data,
+        city : "kyiv"
+    };
 
 it('SavedCity renders correctly with load', () => {
-    const saved = shallow(<SavedCity key = {0} json={mocks.json}/>);
-    saved.setState({done: true, error: false});
+    const saved = shallow(<SavedCity key = {0} json={mocks2}/>);
+    //saved.setState({done: true, error: false});
     expect(shallowToJson(saved)).toMatchSnapshot();
 
 });
-/*it('SavedCity renders correctly with error', () => {
-    const saved = shallow(<SavedCity key = {1} json={mocks.json}/>);
-    saved.setState({error: true});
+it('SavedCity renders correctly with error', () => {
+    const saved = shallow(<SavedCity key = {1} json={mocks3}/>);
+    //saved.setState({error: true});
     expect(shallowToJson(saved)).toMatchSnapshot();
 
 });
 it('SavedCity renders correctly with data', () => {
-    const tree = renderer.create(<SavedCity key = {1} json={mocks.json}/>).toJSON();
-    expect(tree).toMatchSnapshot();
-});*/
+    const saved = shallow(<SavedCity key = {1} json={mocks}/>);
+    expect(shallowToJson(saved)).toMatchSnapshot();
+});

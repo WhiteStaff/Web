@@ -3,8 +3,8 @@ import {connect} from 'react-redux';
 import {doAddItem, itemsFetchData, doChangeInput} from "../actions/items";
 import SavedCity from "./SavedCity";
 
-
-class CitiesPanel extends Component {
+//import раотает с экспортом для редукса, пробросить надо данные c {}
+export class CitiesPanel extends Component {
     handleSubmit = event => {
         event.preventDefault();
         this.props.add(this.props.newCityValue);

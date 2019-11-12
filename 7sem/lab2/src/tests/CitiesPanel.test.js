@@ -1,23 +1,19 @@
-import mock from "./responseExample";
-import App from './App';
-import React from "react";
-import CitiesPanel from "../components/CitiesPanel";
+import {CitiesPanel} from "../components/CitiesPanel";
 import {shallow} from "../../enzyme";
 import {shallowToJson} from "enzyme-to-json";
+import React from "react";
 
-const mocks =
-    {
-        json : mock
+import mock from './responseExample'
+
+it('CitiesPanel отображается корректно', () => {
+    var mock = {
+        isErrored: true,
+        city: "Moscow",
+        data: mock
     };
 
-it('CitiesPanel renders correctly', () => {
-    var input =
-        {
-            error : true,
-            city: "Moscow",
-            data: mocks.json
-        }
-    const panel = shallow(<CitiesPanel items = {[input, input]} newCityValue = "Sochi"/>);
-
-    expect(shallowToJson(panel)).toMatchSnapshot();
+    const FavCity = shallow(
+        <CitiesPanel items = {[mock, mock]} newCityValue = "Sochi" />
+    );
+    expect(shallowToJson(FavCity)).toMatchSnapshot();
 });
