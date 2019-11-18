@@ -3,6 +3,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const nocache = require('nocache');
 
 var weatherRouter = require('./routes/weather');
 var favouriteRouter = require('./routes/favourites');
@@ -13,6 +14,7 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 app.disable('view cache');
+app.use(nocache());
 
 app.use(logger('dev'));
 app.use(express.json());

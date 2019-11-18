@@ -1,0 +1,2 @@
+ var mock = {"coord":{"lon":106.08,"lat":33.77},"weather":[{"id":804,"main":"Clouds","description":"overcast clouds","icon":"04n"}],"base":"model","main":{"temp":275.62,"pressure":1028,"humidity":43,"temp_min":275.62,"temp_max":275.62,"sea_level":1028,"grnd_level":866},"wind":{"speed":0.96,"deg":306},"clouds":{"all":100},"dt":1574080214,"sys":{"country":"CN","sunrise":1574033401,"sunset":1574070701},"timezone":28800,"id":1786288,"name":"Hui","cod":200}
+module.exports = mock;
