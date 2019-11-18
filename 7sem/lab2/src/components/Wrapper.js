@@ -8,11 +8,9 @@ export class Wrapper extends Component {
         this.setState({
             positionAllowed: true,
             done: false,
-            error : false
+            error: false
         });
-        navigator.geolocation.getCurrentPosition(this.setPosition,this.setFail);
-
-
+        navigator.geolocation.getCurrentPosition(this.setPosition, this.setFail);
     }
 
     render() {
@@ -29,7 +27,10 @@ export class Wrapper extends Component {
                                     </div>
                                     <div class="col-3 my-auto mx-auto">
                                         <button class="btn btn-secondary " onClick={() => {
-                                            navigator.geolocation.getCurrentPosition(this.setPosition,                                           () => {this.setFail()});
+                                            navigator.geolocation.getCurrentPosition(this.setPosition,
+                                                () => {
+                                                    this.setFail()
+                                                });
                                         }}>Обновить геолокацию
                                         </button>
                                     </div>
@@ -50,8 +51,12 @@ export class Wrapper extends Component {
                             </div>
                             <div className="col-3 my-auto mx-auto">
                                 <button className="btn btn-secondary " onClick={() => {
-                                    navigator.geolocation.getCurrentPosition((position) => {this.setPosition(position.coords)},
-                                        () => {this.setFail()});
+                                    navigator.geolocation.getCurrentPosition((position) => {
+                                            this.setPosition(position.coords)
+                                        },
+                                        () => {
+                                            this.setFail()
+                                        });
                                 }}>Обновить геолокацию
                                 </button>
                             </div>
@@ -129,14 +134,13 @@ export class Wrapper extends Component {
 
     getWeather = async (coords) => {
         await this.setState({done: false, error: false});
-        fetch('https://api.openweathermap.org/data/2.5/weather?lat=' + coords.latitude + '&lon=' + coords.longitude +
-            '&appid=2e19bb27bd5e717bac388dc0c1827b17')
+        fetch('http://localhost:4000/weather/coordinates?lat=' + coords.latitude + '&long=' + coords.longitude)
             .then((response) => {
                 if (!response.ok) {
                     throw Error(response.statusText);
                 }
+                console.log(response);
                 return response;
-
             })
             .then((response) => response.json())
             .then((response) => {
@@ -164,8 +168,8 @@ export class Wrapper extends Component {
 
     coords =
         {
-            latitude : 55.75,
-            longitude : 37.62
+            latitude: 55.75,
+            longitude: 37.62
         }
 
     setFail = () => {
