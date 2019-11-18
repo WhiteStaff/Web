@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 export function itemsHasErrored(city) {
     return {
         type: 'ITEMS_HAS_ERRORED',
@@ -46,6 +48,7 @@ export function loading(city) {
 export function doDeleteItem(city) {
     return (dispatch) => {
         dispatch(deleteItem(city));
+        dispatch(deleteRemoteItem(city));
     };
 }
 
@@ -58,7 +61,47 @@ export function doChangeInput(item) {
 export function doAddItem(item) {
     return (dispatch) => {
         dispatch(itemsAddItem(item));
+        dispatch(downloadItem(item));
     };
+}
+
+export function itemsFetch() {
+    return (dispatch) => {
+        fetch(`http://localhost:4000/favourites`)
+            .then((response) => {
+                if (!response.ok) {
+                    throw Error(response.statusText);
+                }
+
+                return response;
+            })
+            .then((response) => response.json())
+            .then((response) => {
+                for (var i = 0; i < response.length; i++) {
+                    dispatch(itemsAddItem(response[i].city))
+                }
+            })
+    };
+}
+
+export function downloadItem(item) {
+
+    return  () => {
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', 'http://localhost:4000/favourites', true);
+        xhr.setRequestHeader('content-type', 'application/json');
+        xhr.send(JSON.stringify({"cityname": item}))
+    }
+}
+
+export function deleteRemoteItem(item)
+{
+    return  () => {
+        var xhr = new XMLHttpRequest();
+        xhr.open('DELETE', 'http://localhost:4000/favourites', true);
+        xhr.setRequestHeader('content-type', 'application/json');
+        xhr.send(JSON.stringify({"cityname": item}))
+    }
 }
 
 

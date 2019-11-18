@@ -13,8 +13,9 @@ export function items(state = [], action) {
         }
 
         case 'ADD_ITEM': {
-            state.push({city: action.item, data: {}, done: false, error: false});
-            return state;
+            var copy = state.slice();
+            copy.push({city: action.item, data: {}, done: false, error: false});
+            return copy;
         }
 
         case 'DELETE_ITEM': {

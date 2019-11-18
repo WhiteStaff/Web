@@ -1,10 +1,14 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {doAddItem, itemsFetchData, doChangeInput} from "../actions/items";
+import {doAddItem, itemsFetchData, doChangeInput, itemsFetch} from "../actions/items";
 import SavedCity from "./SavedCity";
 
 
 class CitiesPanel extends Component {
+    componentDidMount() {
+        this.props.download();
+    }
+
     handleSubmit = event => {
         event.preventDefault();
         this.props.add(this.props.newCityValue);
@@ -15,6 +19,7 @@ class CitiesPanel extends Component {
     };
 
     render() {
+
         return (
             <div class="container fav">
                 <div>
@@ -28,7 +33,6 @@ class CitiesPanel extends Component {
                                            placeholder="Добавить новый город"/>
                                     <button type="buton" class="btn-circle">+</button>
                                 </form>
-                                <div id="errortext" class="text-center error"></div>
                             </div>
                         </div>
                     </div>
@@ -65,6 +69,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
+        download: () => dispatch(itemsFetch()),
         fetchData: (url) => dispatch(itemsFetchData(url)),
         add: (city) => dispatch(doAddItem(city)),
         changeInput: (input) => dispatch(doChangeInput(input))

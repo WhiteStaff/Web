@@ -13,46 +13,36 @@ router.get('/', async (req, res) => {
         })
         .then((response) => response.json())
         .then((response) => {
-            res.setHeader('Access-Control-Allow-Origin', '*');
-            res.setHeader('Access-Control-Allow-Headers', 'origin, content-type, accept');
-
             res.send(response)
         })
-        .catch((error)=>{
-            res.setHeader('Access-Control-Allow-Origin', '*');
-            res.setHeader('Access-Control-Allow-Headers', 'origin, content-type, accept');
+        .catch((error) => {
             if (error.message === "404")
                 res.send(404);
-            else
+            else {
+                console.log("апи снова буянит");
                 res.send(mock);
+            }
         })
-            //if (response.) res.send(mock)})
+    //if (response.) res.send(mock)})
 
 })
-
 router.get('/coordinates', async (req, res) => {
     fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${req.query.lat}&lon=${req.query.long}&appid=2e19bb27bd5e717bac388dc0c1827b17`)
-        // .then((response) => {
-        //     console.log(response);
-        //     if (!response.ok) {
-        //         res.send(response);
-        //         throw Error(response.statusText);
-        //     }
-        //     return response;
-        // })
+    .then((response) => {
+        if (!response.ok) {
+            throw Error(response.statusText);
+        }
+        return response;
+    })
         .then((response) => response.json())
         .then((response) => {
-            res.setHeader('Access-Control-Allow-Origin', '*');
-            res.setHeader('Access-Control-Allow-Headers', 'origin, content-type, accept');
-
             res.send(response)
         })
-        .catch(()=>{
-            res.setHeader('Access-Control-Allow-Origin', '*');
-            res.setHeader('Access-Control-Allow-Headers', 'origin, content-type, accept');
-            res.send(mock)})
+        .catch(() => {
+            console.log("апи снова буянит");
+            res.send(mock)
         })
-
+})
 
 
 module.exports = router;

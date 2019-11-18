@@ -4,6 +4,9 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const nocache = require('nocache');
+var cors = require('cors');
+
+
 
 var weatherRouter = require('./routes/weather');
 var favouriteRouter = require('./routes/favourites');
@@ -15,6 +18,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 app.disable('view cache');
 app.use(nocache());
+app.use(cors())
 
 app.use(logger('dev'));
 app.use(express.json());
