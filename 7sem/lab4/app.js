@@ -26,8 +26,8 @@ app.use(function(req, res, next) {
   next(createError(404));
 });
 
-app.listen(3002, function () {
-});
+/*app.listen(3002, function () {
+});*/
 // error handler
 app.use(function(err, req, res, next) {
   // set locals, only providing error in development
