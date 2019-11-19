@@ -1,5 +1,3 @@
-import axios from 'axios';
-
 export function itemsHasErrored(city) {
     return {
         type: 'ITEMS_HAS_ERRORED',

@@ -16,7 +16,7 @@ export class SavedCity extends Component {
                 <div class="col-6">
                 <div class="row">
                     <div class="col-6">
-                        Такого города в известной Вселенной нет
+                        Города {this.props.serverInfo.city} в известной Вселенной нет
                     </div>
                     <div class="col-6 text-right">
                         <button class="btn-circle" onClick={() => this.props.delete(this.props.serverInfo.city)}>X

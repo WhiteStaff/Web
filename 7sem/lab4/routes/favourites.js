@@ -27,10 +27,8 @@ router.post('/', (req, res) => {
     console.log(x);
     connection.query("INSERT INTO `cities`(`city`) VALUES (\""+ req.body.cityname + "\")",  function(err) {
         if (err) {
-
             res.send(err.sqlMessage)
         } else {
-
             res.send("Add OK")};
     });
 })
@@ -39,9 +37,8 @@ router.delete('/', async (req, res) => {
     const connection = mysql.createConnection(db_options).promise();
     connection.query("SET SESSION wait_timeout = 604800");
     connection.query("DELETE FROM `cities` WHERE city=\""+ req.body.cityname + "\"");
-
     res.send("Delete OK");
-})
+});
 
 
 module.exports = router;
