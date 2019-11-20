@@ -15,23 +15,26 @@ global.navigator.geolocation = mockGeolocation;
 
 it('Loading отображается корректно', () => {
     const largeCity = shallow(<Wrapper />);
+    largeCity.setState({done: false, serverInfo: mock, problems: false, positionAllowed: true});
     expect(shallowToJson(largeCity)).toMatchSnapshot();
 });
 
-it('Connection Problems отображается корректно', () => {
-    const largeCity = shallow(<Wrapper />);
-    largeCity.setState({positionAllowed: true});
-    expect(shallowToJson(largeCity)).toMatchSnapshot();
-});
 
 it('Loaded отображается корректно', () => {
     const largeCity = shallow(<Wrapper />);
-    largeCity.setState({done: true, serverInfo: mock});
+    largeCity.setState({done: true, serverInfo: mock, problems: false, positionAllowed: true});
     expect(shallowToJson(largeCity)).toMatchSnapshot();
 });
 
 it('Loaded with problems отображается корректно', () => {
     const largeCity = shallow(<Wrapper />);
-    largeCity.setState({done: true, serverInfo: mock, problems: true});
+    largeCity.setState({done: true, serverInfo: mock, problems: true,  positionAllowed: true});
     expect(shallowToJson(largeCity)).toMatchSnapshot();
 });
+
+it('Loaded without pos отображается корректно', () => {
+    const largeCity = shallow(<Wrapper />);
+    largeCity.setState({done: true, serverInfo: mock, problems: false, positionAllowed: false });
+    expect(shallowToJson(largeCity)).toMatchSnapshot();
+});
+

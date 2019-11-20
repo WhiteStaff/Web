@@ -1,48 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Connection Problems отображается корректно 1`] = `
-<div
-  class="container text-center"
->
-  <div
-    className="row pl-3"
-  >
-    <div
-      className="col-4"
-    >
-      <span
-        className="sh "
-      >
-        Погода здесь
-      </span>
-    </div>
-    <div
-      className="col-3 my-auto mx-auto"
-    >
-      <button
-        className="btn btn-secondary "
-        onClick={[Function]}
-      >
-        Обновить геолокацию
-      </button>
-    </div>
-  </div>
-  <h1>
-    Подождите, данные загружаются
-  </h1>
-  <div
-    className="spinner-border m-5"
-    role="status"
-  >
-    <span
-      className="sr-only"
-    >
-      Loading...
-    </span>
-  </div>
-</div>
-`;
-
 exports[`Loaded with problems отображается корректно 1`] = `
 <div>
   <header>
@@ -77,6 +34,45 @@ exports[`Loaded with problems отображается корректно 1`] = 
   <BigCity
     done={true}
   />
+</div>
+`;
+
+exports[`Loaded without pos отображается корректно 1`] = `
+<div
+  class="container"
+>
+  <div
+    class="row pl-3"
+  >
+    <div
+      className="container"
+    >
+      <div
+        className="row pl-3"
+      >
+        <div
+          className="col-4"
+        >
+          <span
+            className="sh "
+          >
+            Погода в ДС
+          </span>
+        </div>
+        <div
+          className="col-3 my-auto mx-auto"
+        >
+          <button
+            className="btn btn-secondary "
+            onClick={[Function]}
+          >
+            Обновить геолокацию
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <BigCity />
 </div>
 `;
 
