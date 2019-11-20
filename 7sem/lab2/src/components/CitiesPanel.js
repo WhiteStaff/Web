@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {doAddItem, itemsFetchData, doChangeInput, itemsFetch} from "../actions/items";
+import {doAddItem, itemsFetchData, doChangeInput, itemsFetch, doCheckItem} from "../actions/items";
 import SavedCity from "./SavedCity";
 
 
@@ -11,7 +11,9 @@ class CitiesPanel extends Component {
 
     handleSubmit = event => {
         event.preventDefault();
-        this.props.add(this.props.newCityValue);
+        //console.log(this.props.check(this.props.newCityValue));
+        this.props.add(this.props.newCityValue, this.props.items);
+
     };
 
     handleChange = (event) => {
@@ -20,10 +22,18 @@ class CitiesPanel extends Component {
 
     render() {
 
+        let errordiv = "";
+        if (this.props.duplicate) {
+            errordiv = <div className="alert alert-danger" role="alert">
+                Такой город уже добавлен
+            </div>
+        }
+
         return (
             <div class="container fav">
                 <div>
                     <div class="container pl-0">
+                        {errordiv}
                         <div class="row">
                             <div class="col-6 px-0 sh">Избранное</div>
                             <div class="col-6 text-right my-auto form-group">
@@ -64,6 +74,7 @@ const mapStateToProps = (state) => {
     return {
         newCityValue: state.newCityValue,
         items: state.items,
+        duplicate: state.duplicateHandler
     };
 };
 
@@ -71,7 +82,7 @@ const mapDispatchToProps = (dispatch) => {
     return {
         download: () => dispatch(itemsFetch()),
         fetchData: (url) => dispatch(itemsFetchData(url)),
-        add: (city) => dispatch(doAddItem(city)),
+        add: (city, cities) => dispatch(doAddItem(city, cities)),
         changeInput: (input) => dispatch(doChangeInput(input))
     };
 };

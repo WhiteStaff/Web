@@ -19,8 +19,9 @@ router.get('/', (req, res) => {
 
 });
 
-router.post('/', (req, res) => {
-    var x = req.body;
+router.post('/', async (req, res) => {
+    var x = req.body.cityname;
+
     res.setHeader('content-type', 'application/json');
     const connection = mysql.createConnection(db_options).promise();
     connection.query("SET SESSION wait_timeout = 604800");

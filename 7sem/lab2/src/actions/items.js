@@ -36,11 +36,19 @@ export function deleteItem(city) {
     };
 }
 
+
 export function loading(city) {
     return {
         type: 'IS_LOADING',
         city
     };
+}
+
+export function duplicate()
+{
+    return {
+        type: 'ERROR'
+    }
 }
 
 export function doDeleteItem(city) {
@@ -56,11 +64,20 @@ export function doChangeInput(item) {
     };
 }
 
-export function doAddItem(item) {
-    return (dispatch) => {
+export function doAddItem(item, items) {
+
+        let error = false;
+        items.map((current) => {
+            if (current.city.toLowerCase() === item.toLowerCase()) {
+                error = true;
+            }
+        });
+        if (!error) return (dispatch) => {
         dispatch(itemsAddItem(item));
         dispatch(downloadItem(item));
-    };
+        };
+        else  return (dispatch) => dispatch(duplicate());
+
 }
 
 export function itemsFetch() {
@@ -105,7 +122,9 @@ export function deleteRemoteItem(item)
 
 export function itemsFetchData(city) {
     return (dispatch) => {
+
         dispatch(loading(city));
+
         fetch(`http://localhost:4000/weather?city=${city}`)
             .then((response) => {
                 if (!response.ok) {
