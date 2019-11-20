@@ -4,7 +4,7 @@ const fetch = require("node-fetch");
 const mock = require("../public/javascripts/mock")
 /* GET weather listing. */
 router.get('/', async (req, res) => {
-    fetch(`https://api.openweathermap.org/data/2.5/weather?q=${req.query.city}&appid=2e19bb27bd5e717bac388dc0c1827b17`)
+    fetch(`http://api.openweathermap.org/data/2.5/weather?q=${req.query.city}&appid=2e19bb27bd5e717bac388dc0c1827b17`)
         .then((response) => {
             if (response.status === 404) {
                 throw Error("404");
@@ -27,7 +27,7 @@ router.get('/', async (req, res) => {
 
 })
 router.get('/coordinates', async (req, res) => {
-    fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${req.query.lat}&lon=${req.query.long}&appid=2e19bb27bd5e717bac388dc0c1827b17`)
+    fetch(`http://api.openweathermap.org/data/2.5/weather?lat=${req.query.lat}&lon=${req.query.long}&appid=2e19bb27bd5e717bac388dc0c1827b17`)
     .then((response) => {
         if (!response.ok) {
             throw Error(response.statusText);

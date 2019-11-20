@@ -106,7 +106,7 @@ export function deleteRemoteItem(item)
 export function itemsFetchData(city) {
     return (dispatch) => {
         dispatch(loading(city));
-        fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=2e19bb27bd5e717bac388dc0c1827b17`)
+        fetch(`http://localhost:4000/weather?city=${city}`)
             .then((response) => {
                 if (!response.ok) {
                     throw Error(response.statusText);
