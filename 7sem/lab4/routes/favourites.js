@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 const mysql = require("mysql2");
+const fetch = require("node-fetch");
 
 const db_options = {
     host:'maksimdu.beget.tech',
@@ -20,18 +21,23 @@ router.get('/', (req, res) => {
 });
 
 router.post('/', async (req, res) => {
-    var x = req.body.cityname;
 
     res.setHeader('content-type', 'application/json');
     const connection = mysql.createConnection(db_options).promise();
     connection.query("SET SESSION wait_timeout = 604800");
-    console.log(x);
-    connection.query("INSERT INTO `cities`(`city`) VALUES (\""+ req.body.cityname + "\")",  function(err) {
-        if (err) {
-            res.send(err.sqlMessage)
-        } else {
-            res.send("Add OK")};
-    });
+    fetch(`http://api.openweathermap.org/data/2.5/weather?q=${req.body.cityname}&appid=2e19bb27bd5e717bac388dc0c1827b17`)
+        .then((response) => {
+            if (response.status != 404)
+            {
+                connection.query("INSERT INTO `cities`(`city`) VALUES (\""+ req.body.cityname + "\")",  function(err) {
+                    if (err) {
+                        res.send(err.sqlMessage)
+                    } else {
+                        res.send("Add OK")};
+                });
+            }
+        })
+
 })
 
 router.delete('/', async (req, res) => {
