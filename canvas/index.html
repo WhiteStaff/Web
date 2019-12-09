@@ -5,7 +5,7 @@
 
 <!-- Готовим контейнер для диаграммы -->
 <div id="content" align="center">
-    <canvas id="myChart" width="628" height="400"></canvas>
+    <canvas id="myChart" width="1000" height="400"></canvas>
 </div>
 
 <script type="text/javascript">
@@ -87,6 +87,11 @@
                         beginAtZero: true,
                     }
                 }]
+            },
+            elements: {
+                point:{
+                    radius: 0
+                }
             }
         } ,
         tooltips: {
@@ -99,9 +104,14 @@
             }
         }
     });
+    var postId = 1;
+    for (i = 0; i < 1000; i++)
+    {
+        myChart.data.labels.push( postId++);
+    }
 
     // this post id drives the example data
-    var postId = 1;
+
 
     // logic to get new data
     var getData = function() {
@@ -110,7 +120,7 @@
                 // e.g. new label and a new data point
 
                 // add new label and data point to chart's underlying data structures
-                myChart.data.labels.push("Post " + postId++);
+
                 myChart.data.datasets[0].data.push(getRandomIntInclusive(1, 25));
 
                 // re-render the chart
@@ -119,7 +129,7 @@
     };
 
     // get new data every 3 seconds
-    setInterval(getData, 30);
+    setInterval(getData, 20);
 
     //Ставим загрузку диаграммы на событие загрузки страницы
     //window.addEventListener("load", Diagram);
