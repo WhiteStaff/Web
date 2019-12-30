@@ -9,7 +9,7 @@
   "dependencies": {
     "chai": "^4.2.0",
     "connect": "^3.7.0",
-    "handlebars": "^4.2.1",
+    "handlebars": "^4.3.0",
     "mocha": "^6.2.2",
     "mocha-chrome": "^2.2.0",
     "phantom": "^6.3.0",
